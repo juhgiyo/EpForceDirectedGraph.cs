@@ -182,6 +182,7 @@ namespace EpForceDirectedGraph
             return edgeSprings[iEdge.ID];
         }
 
+        // TODO: change this for group only after node grouping
         protected void ApplyCoulombsLaw()
         {
             foreach(Node n1 in graph.nodes)

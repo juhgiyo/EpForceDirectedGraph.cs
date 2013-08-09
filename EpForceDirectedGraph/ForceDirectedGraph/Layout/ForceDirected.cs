@@ -65,10 +65,6 @@ namespace EpForceDirectedGraph
 
     public abstract class ForceDirected<Vector> : IForceDirected where Vector : IVector
     {
-        public int TimeStep{
-            get;set;
-        }
-        Timer timer; 
     	public float Stiffness
         {
             get;
@@ -87,28 +83,12 @@ namespace EpForceDirectedGraph
             protected set;
         }
 
-        public bool Started{
-            get;
-            protected set;
-        }
-
-        protected bool Stopped
-        {
-            get;
-            set;
-        }
-
         public float Threadshold
         {
             get;
             set;
         }
 
-        public float PhysicsTimeStep
-        {
-            get;
-            set;
-        }
 
         protected Dictionary<string, Point> nodePoints;
         protected Dictionary<string, Spring> edgeSprings;
@@ -117,12 +97,9 @@ namespace EpForceDirectedGraph
             get;
             protected set;
         }
-        protected IRendererForForceDirected renderer;
 
-        public ForceDirected(IGraph iGraph, float iStiffness, float iRepulsion, float iDamping, int iTimeStep = 10)
+        public ForceDirected(IGraph iGraph, float iStiffness, float iRepulsion, float iDamping)
         {
-            TimeStep=iTimeStep;
-            timer=new Timer(TimeStep);
             graph=iGraph;
             Stiffness=iStiffness;
             Repulsion=iRepulsion;
@@ -130,12 +107,7 @@ namespace EpForceDirectedGraph
             nodePoints = new Dictionary<string, Point>();
             edgeSprings = new Dictionary<string, Spring>();
 
-            timer.Elapsed+=new ElapsedEventHandler(Step);
-
-            renderer=null;
-
             Threadshold = 0.01f;
-            PhysicsTimeStep = 0.03f;
         }
 
         protected abstract Point GetPoint(Node iNode);
@@ -196,8 +168,26 @@ namespace EpForceDirectedGraph
                         AbstractVector d=point1.position-point2.position;
                         float distance = d.Magnitude() +0.1f;
                         AbstractVector direction = d.Normalize();
-                        point1.ApplyForce((direction*Repulsion)/(distance*distance*0.5f));
-                        point2.ApplyForce((direction*Repulsion)/(distance*distance*-0.5f));
+                        if (n1.Pinned && n2.Pinned)
+                        {
+                            point1.ApplyForce(direction * 0.0f);
+                            point2.ApplyForce(direction * 0.0f);
+                        }
+                        else if (n1.Pinned)
+                        {
+                            point1.ApplyForce(direction*0.0f);
+                            point2.ApplyForce((direction * Repulsion) / (distance * distance * -1.0f));
+                        }
+                        else if (n2.Pinned)
+                        {
+                            point1.ApplyForce((direction * Repulsion) / (distance * distance));
+                            point2.ApplyForce(direction * 0.0f);
+                        }
+                        else
+                        {
+                            point1.ApplyForce((direction * Repulsion) / (distance * distance * 0.5f));
+                            point2.ApplyForce((direction * Repulsion) / (distance * distance * -0.5f));
+                        }
                     }
                 }
             }
@@ -212,8 +202,28 @@ namespace EpForceDirectedGraph
                 float displacement = spring.Length-d.Magnitude();
                 AbstractVector direction = d.Normalize();
 
-                spring.point1.ApplyForce(direction*(spring.K * displacement * -0.5f));
-                spring.point2.ApplyForce(direction*(spring.K * displacement * 0.5f));
+                if (spring.point1.node.Pinned && spring.point2.node.Pinned)
+                {
+                    spring.point1.ApplyForce(direction * 0.0f);
+                    spring.point2.ApplyForce(direction * 0.0f);
+                }
+                else if (spring.point1.node.Pinned)
+                {
+                    spring.point1.ApplyForce(direction * 0.0f);
+                    spring.point2.ApplyForce(direction * (spring.K * displacement));
+                }
+                else if (spring.point2.node.Pinned)
+                {
+                    spring.point1.ApplyForce(direction * (spring.K * displacement * -1.0f));
+                    spring.point2.ApplyForce(direction * 0.0f);
+                }
+                else
+                {
+                    spring.point1.ApplyForce(direction * (spring.K * displacement * -0.5f));
+                    spring.point2.ApplyForce(direction * (spring.K * displacement * 0.5f));
+                }
+
+                
             }
         }
 
@@ -223,7 +233,8 @@ namespace EpForceDirectedGraph
             {
                 Point point = GetPoint(n);
                 AbstractVector direction = point.position*-1.0f;
-                point.ApplyForce(direction*(Repulsion/50.0f));
+                if(!point.node.Pinned)
+                    point.ApplyForce(direction*(Repulsion/50.0f));
             }
         }
 
@@ -259,49 +270,16 @@ namespace EpForceDirectedGraph
             return energy;
         }
 
-        protected  void Step(object sender, ElapsedEventArgs e)
+        public void Calculate(float iTimeStep)
         {
             ApplyCoulombsLaw();
             ApplyHookesLaw();
             AttractToCentre();
-            UpdateVelocity(PhysicsTimeStep);
-            UpdatePosition(PhysicsTimeStep);
-            if(renderer !=null)
-            {
-                renderer.Draw();
-            }
-
-            if (Stopped || TotalEnergy() < Threadshold)
-            {
-                Started=false;
-                if(renderer!=null)
-                {
-                    renderer.Done();
-                }
-            }
-            else
-            {
-                timer.Enabled=true;
-            }
+            UpdateVelocity(iTimeStep);
+            UpdatePosition(iTimeStep);
+            
         }
 
-
-        public void Start(IRendererForForceDirected iRenderer)
-        {
-            if(Started)
-                return;
-            Started=true;
-            Stopped=false;
-
-            renderer=iRenderer;
-            timer.Interval=TimeStep;
-            timer.Enabled=true;
-        }
-
-        public void Stop()
-        {
-            Stopped=true;
-        }
 
         public void EachEdge(EdgeAction del)
         {
@@ -342,8 +320,8 @@ namespace EpForceDirectedGraph
 
     public class ForceDirected2D : ForceDirected<Vector2>
     {
-        public ForceDirected2D(IGraph iGraph, float iStiffness, float iRepulsion, float iDamping, int iTimeStep = 10)
-            : base(iGraph, iStiffness, iRepulsion, iDamping, iTimeStep)
+        public ForceDirected2D(IGraph iGraph, float iStiffness, float iRepulsion, float iDamping)
+            : base(iGraph, iStiffness, iRepulsion, iDamping)
         {
 
         }
@@ -352,8 +330,7 @@ namespace EpForceDirectedGraph
         {
             if (!(nodePoints.ContainsKey(iNode.ID)))
             {
-                float mass = iNode.Data.mass;
-                nodePoints[iNode.ID] = new Point(Vector2.Random(), Vector2.Zero(), Vector2.Zero(), mass);
+                nodePoints[iNode.ID] = new Point(Vector2.Random(), Vector2.Zero(), Vector2.Zero(), iNode);
             }
             return nodePoints[iNode.ID];
         }
@@ -386,8 +363,8 @@ namespace EpForceDirectedGraph
 
     public class ForceDirected3D : ForceDirected<Vector3>
     {
-        public ForceDirected3D(IGraph iGraph, float iStiffness, float iRepulsion, float iDamping, int iTimeStep = 10)
-            : base(iGraph, iStiffness, iRepulsion, iDamping, iTimeStep)
+        public ForceDirected3D(IGraph iGraph, float iStiffness, float iRepulsion, float iDamping)
+            : base(iGraph, iStiffness, iRepulsion, iDamping)
         {
 
         }
@@ -396,8 +373,7 @@ namespace EpForceDirectedGraph
         {
             if (!(nodePoints.ContainsKey(iNode.ID)))
             {
-                float mass = iNode.Data.mass;
-                nodePoints[iNode.ID] = new Point(Vector3.Random(), Vector3.Zero(), Vector3.Zero(), mass);
+                nodePoints[iNode.ID] = new Point(Vector3.Random(), Vector3.Zero(), Vector3.Zero(), iNode);
             }
             return nodePoints[iNode.ID];
         }

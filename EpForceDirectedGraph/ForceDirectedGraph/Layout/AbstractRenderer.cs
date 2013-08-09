@@ -35,37 +35,18 @@ using System.Text;
 
 namespace EpForceDirectedGraph
 {
-    public abstract class AbstractRenderer : IGraphEventListener,IRenderer, IRendererForForceDirected 
+    public abstract class AbstractRenderer : IRenderer
     {
         protected IForceDirected forceDirected;
         public AbstractRenderer(IForceDirected iForceDirected)
         {
             forceDirected = iForceDirected;
-            if (forceDirected != null)
-                forceDirected.graph.AddGraphListener(this);
         }
 
-        public void GraphChanged()
+
+        public void Draw(float iTimeStep)
         {
-            Start();
-        }
-
-        public void Start()
-        {
-            forceDirected.Start(this);
-
-
-        }
-
-        
-        public void Stop()
-        {
-            forceDirected.Stop();
-        }
-
-        public void Draw()
-        {
-
+            forceDirected.Calculate(iTimeStep);
             Clear();
             forceDirected.EachEdge(delegate(Edge edge, Spring spring)
             {
@@ -75,10 +56,6 @@ namespace EpForceDirectedGraph
             {
                 DrawNode(node, point.position);
             });
-
-        }
-        public virtual void Done()
-        {
 
         }
         public abstract void Clear();

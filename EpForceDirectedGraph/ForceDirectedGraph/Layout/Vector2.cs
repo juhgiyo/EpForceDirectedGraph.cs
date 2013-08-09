@@ -37,23 +37,12 @@ namespace EpForceDirectedGraph
 {
     public class Vector2:AbstractVector
     {
-        public float x
-        {
-            get;
-            set;
-        }
-
-        public float y
-        {
-            get;
-            set;
-        }
-
 
         public Vector2(float iX, float iY):base()
         {
             x = iX;
             y = iY;
+            z = 0.0f;
 
         }
 

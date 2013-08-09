@@ -37,10 +37,10 @@ namespace EpForceDirectedGraph
 {
     public class Point
     {
-        public Point(AbstractVector iPosition, AbstractVector iVelocity, AbstractVector iAcceleration, float iMass)
+        public Point(AbstractVector iPosition, AbstractVector iVelocity, AbstractVector iAcceleration,Node iNode)
         {
             position=iPosition;
-            mass = iMass;
+            node = iNode;
             velocity = iVelocity;
             acceleration = iAcceleration;
         }
@@ -109,7 +109,14 @@ namespace EpForceDirectedGraph
         }
 
         public AbstractVector position { get; private set; }
-        public float mass { get; private set; }
+        public Node node { get; private set; }
+        public float mass
+        {
+            get
+            {
+                return node.Data.mass;
+            }
+        }
         public AbstractVector velocity { get; private set; }
         public AbstractVector acceleration { get; private set; }
      }

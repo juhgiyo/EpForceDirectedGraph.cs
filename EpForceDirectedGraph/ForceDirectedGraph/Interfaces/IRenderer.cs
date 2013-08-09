@@ -35,17 +35,11 @@ using System.Text;
 
 namespace EpForceDirectedGraph
 {
-    public interface IRendererForForceDirected
-    {
-        void Done();
-        void Draw();
-    }
 
     public interface IRenderer
     {
-        void Start();
-        void Stop();
+
         void Clear();
-        void Draw();
+        void Draw(float iTimeStep);
     }
 }

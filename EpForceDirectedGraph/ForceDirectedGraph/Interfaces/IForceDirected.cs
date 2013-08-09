@@ -45,7 +45,6 @@ namespace EpForceDirectedGraph
             get;
         }
 
-        int TimeStep { get; set; }
         float Stiffness
         {
             get;
@@ -61,24 +60,14 @@ namespace EpForceDirectedGraph
             get;
         }
 
-        bool Started
-        {
-            get;
-        }
-        float Threadshold
+        float Threadshold // NOT Using
         {
             get;
             set;
         }
 
-        float PhysicsTimeStep
-        {
-            get;
-            set;
-        }
 
-        void Start(IRendererForForceDirected renderer);
-        void Stop();
+        void Calculate(float iTimeStep);
         void EachEdge(EdgeAction del);
         void EachNode(NodeAction del);
         NearestPoint Nearest(AbstractVector position);

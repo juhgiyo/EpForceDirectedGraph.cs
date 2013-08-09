@@ -58,7 +58,13 @@ namespace EpForceDirectedGraph
             get;
             private set;
         }
-        
+
+
+        public bool Pinned
+        {
+            get;
+            set;
+        }
         public override int GetHashCode()
         {
             return ID.GetHashCode();

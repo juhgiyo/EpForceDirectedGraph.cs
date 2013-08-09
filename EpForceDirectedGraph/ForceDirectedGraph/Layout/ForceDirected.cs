@@ -270,7 +270,7 @@ namespace EpForceDirectedGraph
             return energy;
         }
 
-        public void Calculate(float iTimeStep)
+        public void Calculate(float iTimeStep) // time in second
         {
             ApplyCoulombsLaw();
             ApplyHookesLaw();

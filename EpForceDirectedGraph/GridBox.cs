@@ -74,7 +74,16 @@ namespace EpForceDirectedGraph
         }
         public void DrawBox(Graphics iPaper)
         {
-
+            if (boxType == BoxType.Pinned)
+            {
+                boxRec.Width = 26;
+                boxRec.Height = 26;
+            }
+            else
+            {
+                boxRec.Width = 18;
+                boxRec.Height = 18;
+            }
             iPaper.FillRectangle(brush, boxRec);
          
         }

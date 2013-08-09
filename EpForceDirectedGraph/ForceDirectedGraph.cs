@@ -19,7 +19,6 @@ namespace EpForceDirectedGraph
         Stopwatch stopwatch = new Stopwatch();
 
         Graphics paper;
-
         int panelTop;
         int panelBottom;
         int panelLeft;
@@ -31,6 +30,7 @@ namespace EpForceDirectedGraph
         Graph m_fdgGraph;
         ForceDirected2D m_fdgPhysics;
         Renderer m_fdgRenderer;
+        
 
         System.Timers.Timer timer = new System.Timers.Timer(30);
 
@@ -46,7 +46,7 @@ namespace EpForceDirectedGraph
             this.MaximizeBox = false;
 
             tbStiffness.Text = "81.76";
-            tbRepulsion.Text = "1000.0";
+            tbRepulsion.Text = "40000.0";
             tbDamping.Text = "0.5";
             panelTop = 0;
             panelBottom = pDrawPanel.Size.Height;
@@ -56,13 +56,13 @@ namespace EpForceDirectedGraph
             m_fdgBoxes = new Dictionary<Node, GridBox>();
             m_fdgLines = new Dictionary<Edge, GridLine>();
             m_fdgGraph = new Graph();
-            m_fdgPhysics = new ForceDirected2D(m_fdgGraph,81.76f,1000.0f, 0.5f);
+            m_fdgPhysics = new ForceDirected2D(m_fdgGraph,81.76f,40000.0f, 0.5f);
             m_fdgRenderer = new Renderer(this, m_fdgPhysics);
            
 
             pDrawPanel.Paint += new PaintEventHandler(DrawPanel_Paint);
-           
-            timer.Interval = 100;
+
+            timer.Interval = 30;
             timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
             timer.Start();
 
@@ -81,7 +81,7 @@ namespace EpForceDirectedGraph
             GridBox box = new GridBox((panelRight - panelLeft) / 2, (panelBottom - panelTop) / 2, BoxType.Pinned);
             box.DrawBox(paper);
 
-            m_fdgRenderer.Draw(0.1f); // TODO: Check Time
+            m_fdgRenderer.Draw(0.05f); // TODO: Check Time
 
             stopwatch.Reset();
             stopwatch.Start();
@@ -91,19 +91,8 @@ namespace EpForceDirectedGraph
 
         private void ForceDirectedGraph_Paint(object sender, PaintEventArgs e)
         {
-//             stopwatch.Stop();
-//             paper = e.Graphics;
-// 
-//             GridBox box = new GridBox((panelRight - panelLeft) / 2, (panelBottom - panelTop) / 2, BoxType.Pinned);
-//             box.DrawBox(paper);
-// 
-//             m_fdgRenderer.Draw(((float)stopwatch.ElapsedMilliseconds) / 1000.0f); // TODO: Check Time
-// 
-//             stopwatch.Reset();
-//             stopwatch.Start();
  
-            
-            
+         
         }
         public Pair<int, int> GraphToScreen(Vector2 iPos)
         {
@@ -195,6 +184,7 @@ namespace EpForceDirectedGraph
         {
             if (lbNode.SelectedIndex != -1)
             {
+                int selectedIdx = lbNode.SelectedIndex;
                 string nodeName=(string)lbNode.SelectedItem;
                 Node removeNode=m_fdgGraph.GetNode(nodeName);
 
@@ -212,7 +202,10 @@ namespace EpForceDirectedGraph
                 cbbFromNode.Items.RemoveAt(lbNode.SelectedIndex);
                 cbbToNode.Items.RemoveAt(lbNode.SelectedIndex);
 
-                lbNode.Items.RemoveAt(lbNode.SelectedIndex);                
+                lbNode.Items.RemoveAt(lbNode.SelectedIndex);
+                if (selectedIdx != 0)
+                    lbNode.SelectedIndex = selectedIdx-1;
+                lbNode.Focus();
             }
             else
             {
@@ -224,11 +217,17 @@ namespace EpForceDirectedGraph
         {
             if (lbEdge.SelectedIndex != -1)
             {
+                int selectedIdx = lbEdge.SelectedIndex;
                 string edgeName = (string)lbEdge.SelectedItem;
                 Edge removeEdge= m_fdgGraph.GetEdge(edgeName);
                 m_fdgLines.Remove(removeEdge);
                 m_fdgGraph.RemoveEdge(removeEdge);
                 lbEdge.Items.RemoveAt(lbEdge.SelectedIndex);
+                if (selectedIdx != 0)
+                {
+                    lbEdge.SelectedIndex = selectedIdx - 1;
+                }
+                lbEdge.Focus();
             }
             else
             {
@@ -236,10 +235,77 @@ namespace EpForceDirectedGraph
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        Node clickedNode;
+        GridBox clickedGrid;
+        private void pDrawPanel_MouseDown(object sender, MouseEventArgs e)
         {
-            pDrawPanel.Invalidate();
-            //Invalidate();
+            foreach (KeyValuePair<Node, GridBox> keyPair in m_fdgBoxes)
+            {
+                if(keyPair.Value.boxRec.IntersectsWith(new Rectangle(e.Location,new Size(1,1))))
+                {
+                    clickedNode = keyPair.Key;
+                    clickedGrid = keyPair.Value;
+                    clickedGrid.boxType = BoxType.Pinned;
+                }
+            }
+        }
+
+        private void pDrawPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (clickedNode != null)
+            {
+
+                Vector2 vec = ScreenToGraph(new Pair<int, int>(e.Location.X, e.Location.Y));
+                clickedNode.Pinned = true;
+                m_fdgPhysics.GetPoint(clickedNode).position = vec;
+            }
+        }
+
+        private void pDrawPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (clickedNode != null)
+            {
+                clickedGrid.boxType = BoxType.Normal;
+                clickedNode.Pinned = false;
+                clickedNode = null;
+                clickedGrid = null;
+            }
+        }
+
+        private void tbNodeName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAddNode_Click(sender, e);
+                tbNodeName.Focus();
+            }
+        }
+
+        private void tbStiffness_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnChangeProperties_Click(sender, e);
+                tbStiffness.Focus();
+            }
+        }
+
+        private void tbRepulsion_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnChangeProperties_Click(sender, e);
+                tbRepulsion.Focus();
+            }
+        }
+
+        private void tbDamping_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnChangeProperties_Click(sender, e);
+                tbDamping.Focus();
+            }
         }
     }
 }

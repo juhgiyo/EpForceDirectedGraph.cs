@@ -108,7 +108,7 @@ namespace EpForceDirectedGraph
             acceleration.Add(force/mass);
         }
 
-        public AbstractVector position { get; private set; }
+        public AbstractVector position { get; set; }
         public Node node { get; private set; }
         public float mass
         {

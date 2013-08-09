@@ -114,11 +114,11 @@ namespace EpForceDirectedGraph
             Threadshold = 0.01f;
         }
 
-        protected abstract Point GetPoint(Node iNode);
-        
-        
+        public abstract Point GetPoint(Node iNode);
 
-        protected Spring GetSpring(Edge iEdge)
+
+
+        public Spring GetSpring(Edge iEdge)
         {
             if(!(edgeSprings.ContainsKey(iEdge.ID)))
             {
@@ -246,13 +246,20 @@ namespace EpForceDirectedGraph
 
         protected void AttractToCentre()
         {
-//             foreach(Node n in graph.nodes)
-//             {
-//                 Point point = GetPoint(n);
-//                 AbstractVector direction = point.position*-1.0f;
-//                 if(!point.node.Pinned)
-//                     point.ApplyForce(direction*(Repulsion/50.0f));
-//             }
+            foreach(Node n in graph.nodes)
+            {
+                Point point = GetPoint(n);
+                if (!point.node.Pinned)
+                {
+                    AbstractVector direction = point.position*-1.0f;
+                    //point.ApplyForce(direction * ((float)Math.Sqrt((double)(Repulsion / 100.0f))));
+
+                    
+                    float displacement = direction.Magnitude();
+                    direction = direction.Normalize();
+                    point.ApplyForce(direction * (Stiffness * displacement * 0.4f));
+                }
+             }
         }
 
         protected void UpdateVelocity(float iTimeStep)
@@ -348,7 +355,7 @@ namespace EpForceDirectedGraph
 
         }
 
-        protected override Point GetPoint(Node iNode)
+        public override Point GetPoint(Node iNode)
         {
             if (!(nodePoints.ContainsKey(iNode.ID)))
             {
@@ -394,7 +401,7 @@ namespace EpForceDirectedGraph
 
         }
 
-        protected override Point GetPoint(Node iNode)
+        public override Point GetPoint(Node iNode)
         {
             if (!(nodePoints.ContainsKey(iNode.ID)))
             {

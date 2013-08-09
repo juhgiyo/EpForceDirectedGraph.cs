@@ -45,9 +45,8 @@
             this.lbEdge = new System.Windows.Forms.ListBox();
             this.btnRemoveNode = new System.Windows.Forms.Button();
             this.btnRemoveEdge = new System.Windows.Forms.Button();
-            this.pDrawPanel = new DoubleBufferPanel();
             this.btnChangeProperties = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.pDrawPanel = new EpForceDirectedGraph.DoubleBufferPanel();
             this.SuspendLayout();
             // 
             // tbStiffness
@@ -55,7 +54,8 @@
             this.tbStiffness.Location = new System.Drawing.Point(92, 29);
             this.tbStiffness.Name = "tbStiffness";
             this.tbStiffness.Size = new System.Drawing.Size(100, 21);
-            this.tbStiffness.TabIndex = 0;
+            this.tbStiffness.TabIndex = 6;
+            this.tbStiffness.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbStiffness_KeyDown);
             // 
             // label1
             // 
@@ -80,7 +80,8 @@
             this.tbRepulsion.Location = new System.Drawing.Point(265, 29);
             this.tbRepulsion.Name = "tbRepulsion";
             this.tbRepulsion.Size = new System.Drawing.Size(100, 21);
-            this.tbRepulsion.TabIndex = 2;
+            this.tbRepulsion.TabIndex = 7;
+            this.tbRepulsion.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbRepulsion_KeyDown);
             // 
             // label3
             // 
@@ -96,7 +97,8 @@
             this.tbDamping.Location = new System.Drawing.Point(432, 29);
             this.tbDamping.Name = "tbDamping";
             this.tbDamping.Size = new System.Drawing.Size(100, 21);
-            this.tbDamping.TabIndex = 4;
+            this.tbDamping.TabIndex = 8;
+            this.tbDamping.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbDamping_KeyDown);
             // 
             // cbbFromNode
             // 
@@ -105,7 +107,7 @@
             this.cbbFromNode.Location = new System.Drawing.Point(279, 2);
             this.cbbFromNode.Name = "cbbFromNode";
             this.cbbFromNode.Size = new System.Drawing.Size(121, 20);
-            this.cbbFromNode.TabIndex = 6;
+            this.cbbFromNode.TabIndex = 3;
             // 
             // label4
             // 
@@ -121,14 +123,15 @@
             this.tbNodeName.Location = new System.Drawing.Point(92, 2);
             this.tbNodeName.Name = "tbNodeName";
             this.tbNodeName.Size = new System.Drawing.Size(100, 21);
-            this.tbNodeName.TabIndex = 7;
+            this.tbNodeName.TabIndex = 1;
+            this.tbNodeName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbNodeName_KeyDown);
             // 
             // btnAddNode
             // 
             this.btnAddNode.Location = new System.Drawing.Point(198, 0);
             this.btnAddNode.Name = "btnAddNode";
             this.btnAddNode.Size = new System.Drawing.Size(75, 23);
-            this.btnAddNode.TabIndex = 9;
+            this.btnAddNode.TabIndex = 2;
             this.btnAddNode.Text = "Add Node";
             this.btnAddNode.UseVisualStyleBackColor = true;
             this.btnAddNode.Click += new System.EventHandler(this.btnAddNode_Click);
@@ -140,7 +143,7 @@
             this.cbbToNode.Location = new System.Drawing.Point(425, 2);
             this.cbbToNode.Name = "cbbToNode";
             this.cbbToNode.Size = new System.Drawing.Size(121, 20);
-            this.cbbToNode.TabIndex = 10;
+            this.cbbToNode.TabIndex = 4;
             // 
             // label5
             // 
@@ -156,7 +159,7 @@
             this.btnAddEdge.Location = new System.Drawing.Point(552, 0);
             this.btnAddEdge.Name = "btnAddEdge";
             this.btnAddEdge.Size = new System.Drawing.Size(75, 23);
-            this.btnAddEdge.TabIndex = 12;
+            this.btnAddEdge.TabIndex = 5;
             this.btnAddEdge.Text = "Add Edge";
             this.btnAddEdge.UseVisualStyleBackColor = true;
             this.btnAddEdge.Click += new System.EventHandler(this.btnAddEdge_Click);
@@ -170,7 +173,7 @@
             this.lbNode.Location = new System.Drawing.Point(12, 79);
             this.lbNode.Name = "lbNode";
             this.lbNode.Size = new System.Drawing.Size(120, 436);
-            this.lbNode.TabIndex = 13;
+            this.lbNode.TabIndex = 10;
             // 
             // lbEdge
             // 
@@ -181,7 +184,7 @@
             this.lbEdge.Location = new System.Drawing.Point(141, 79);
             this.lbEdge.Name = "lbEdge";
             this.lbEdge.Size = new System.Drawing.Size(120, 436);
-            this.lbEdge.TabIndex = 14;
+            this.lbEdge.TabIndex = 12;
             // 
             // btnRemoveNode
             // 
@@ -189,7 +192,7 @@
             this.btnRemoveNode.Location = new System.Drawing.Point(12, 526);
             this.btnRemoveNode.Name = "btnRemoveNode";
             this.btnRemoveNode.Size = new System.Drawing.Size(120, 23);
-            this.btnRemoveNode.TabIndex = 15;
+            this.btnRemoveNode.TabIndex = 11;
             this.btnRemoveNode.Text = "Remove Node";
             this.btnRemoveNode.UseVisualStyleBackColor = true;
             this.btnRemoveNode.Click += new System.EventHandler(this.btnRemoveNode_Click);
@@ -200,10 +203,20 @@
             this.btnRemoveEdge.Location = new System.Drawing.Point(141, 526);
             this.btnRemoveEdge.Name = "btnRemoveEdge";
             this.btnRemoveEdge.Size = new System.Drawing.Size(120, 23);
-            this.btnRemoveEdge.TabIndex = 16;
+            this.btnRemoveEdge.TabIndex = 13;
             this.btnRemoveEdge.Text = "Remove Edge";
             this.btnRemoveEdge.UseVisualStyleBackColor = true;
             this.btnRemoveEdge.Click += new System.EventHandler(this.btnRemoveEdge_Click);
+            // 
+            // btnChangeProperties
+            // 
+            this.btnChangeProperties.Location = new System.Drawing.Point(552, 27);
+            this.btnChangeProperties.Name = "btnChangeProperties";
+            this.btnChangeProperties.Size = new System.Drawing.Size(127, 23);
+            this.btnChangeProperties.TabIndex = 9;
+            this.btnChangeProperties.Text = "Change Properties";
+            this.btnChangeProperties.UseVisualStyleBackColor = true;
+            this.btnChangeProperties.Click += new System.EventHandler(this.btnChangeProperties_Click);
             // 
             // pDrawPanel
             // 
@@ -216,26 +229,9 @@
             this.pDrawPanel.Name = "pDrawPanel";
             this.pDrawPanel.Size = new System.Drawing.Size(411, 470);
             this.pDrawPanel.TabIndex = 17;
-            // 
-            // btnChangeProperties
-            // 
-            this.btnChangeProperties.Location = new System.Drawing.Point(552, 27);
-            this.btnChangeProperties.Name = "btnChangeProperties";
-            this.btnChangeProperties.Size = new System.Drawing.Size(127, 23);
-            this.btnChangeProperties.TabIndex = 18;
-            this.btnChangeProperties.Text = "Change Properties";
-            this.btnChangeProperties.UseVisualStyleBackColor = true;
-            this.btnChangeProperties.Click += new System.EventHandler(this.btnChangeProperties_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(15, 50);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 19;
-            this.button1.Text = "Draw";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.pDrawPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pDrawPanel_MouseDown);
+            this.pDrawPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pDrawPanel_MouseMove);
+            this.pDrawPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pDrawPanel_MouseUp);
             // 
             // ForceDirectedGraphForm
             // 
@@ -243,7 +239,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.ClientSize = new System.Drawing.Size(691, 561);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnChangeProperties);
             this.Controls.Add(this.pDrawPanel);
             this.Controls.Add(this.btnRemoveEdge);
@@ -291,9 +286,8 @@
         private System.Windows.Forms.ListBox lbEdge;
         private System.Windows.Forms.Button btnRemoveNode;
         private System.Windows.Forms.Button btnRemoveEdge;
-        private System.Windows.Forms.Panel pDrawPanel;
         private System.Windows.Forms.Button btnChangeProperties;
-        private System.Windows.Forms.Button button1;
+        private DoubleBufferPanel pDrawPanel;
     }
 }
 

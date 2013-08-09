@@ -234,12 +234,14 @@ namespace EpForceDirectedGraph
                     tEdges.Remove(iEdge);
                     if (tEdges.Count == 0)
                     {
-                        adjacencySet[x.Key][y.Key] = null;
+                        adjacencySet[x.Key].Remove(y.Key);
+                        break;
                     }
                 }
                 if (x.Value.Count == 0)
                 {
-                    adjacencySet[x.Key] = null;
+                    adjacencySet.Remove(x.Key);
+                    break;
                 }
             }
             Notify();

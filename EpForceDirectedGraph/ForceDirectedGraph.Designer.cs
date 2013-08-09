@@ -1,6 +1,6 @@
 ﻿namespace EpForceDirectedGraph
 {
-    partial class ForceDirectedGraph
+    partial class ForceDirectedGraphForm
     {
         /// <summary>
         /// Required designer variable.
@@ -45,8 +45,9 @@
             this.lbEdge = new System.Windows.Forms.ListBox();
             this.btnRemoveNode = new System.Windows.Forms.Button();
             this.btnRemoveEdge = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pDrawPanel = new DoubleBufferPanel();
             this.btnChangeProperties = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbStiffness
@@ -130,6 +131,7 @@
             this.btnAddNode.TabIndex = 9;
             this.btnAddNode.Text = "Add Node";
             this.btnAddNode.UseVisualStyleBackColor = true;
+            this.btnAddNode.Click += new System.EventHandler(this.btnAddNode_Click);
             // 
             // cbbToNode
             // 
@@ -157,6 +159,7 @@
             this.btnAddEdge.TabIndex = 12;
             this.btnAddEdge.Text = "Add Edge";
             this.btnAddEdge.UseVisualStyleBackColor = true;
+            this.btnAddEdge.Click += new System.EventHandler(this.btnAddEdge_Click);
             // 
             // lbNode
             // 
@@ -189,6 +192,7 @@
             this.btnRemoveNode.TabIndex = 15;
             this.btnRemoveNode.Text = "Remove Node";
             this.btnRemoveNode.UseVisualStyleBackColor = true;
+            this.btnRemoveNode.Click += new System.EventHandler(this.btnRemoveNode_Click);
             // 
             // btnRemoveEdge
             // 
@@ -199,17 +203,19 @@
             this.btnRemoveEdge.TabIndex = 16;
             this.btnRemoveEdge.Text = "Remove Edge";
             this.btnRemoveEdge.UseVisualStyleBackColor = true;
+            this.btnRemoveEdge.Click += new System.EventHandler(this.btnRemoveEdge_Click);
             // 
-            // panel1
+            // pDrawPanel
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pDrawPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Location = new System.Drawing.Point(268, 79);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(411, 470);
-            this.panel1.TabIndex = 17;
+            this.pDrawPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.pDrawPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pDrawPanel.Location = new System.Drawing.Point(268, 79);
+            this.pDrawPanel.Name = "pDrawPanel";
+            this.pDrawPanel.Size = new System.Drawing.Size(411, 470);
+            this.pDrawPanel.TabIndex = 17;
             // 
             // btnChangeProperties
             // 
@@ -219,14 +225,27 @@
             this.btnChangeProperties.TabIndex = 18;
             this.btnChangeProperties.Text = "Change Properties";
             this.btnChangeProperties.UseVisualStyleBackColor = true;
+            this.btnChangeProperties.Click += new System.EventHandler(this.btnChangeProperties_Click);
             // 
-            // ForceDirectedGraph
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(15, 50);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "Draw";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // ForceDirectedGraphForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.ClientSize = new System.Drawing.Size(691, 561);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnChangeProperties);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pDrawPanel);
             this.Controls.Add(this.btnRemoveEdge);
             this.Controls.Add(this.btnRemoveNode);
             this.Controls.Add(this.lbEdge);
@@ -244,7 +263,8 @@
             this.Controls.Add(this.tbRepulsion);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbStiffness);
-            this.Name = "ForceDirectedGraph";
+            this.DoubleBuffered = true;
+            this.Name = "ForceDirectedGraphForm";
             this.Text = "EpForceDirectedGraph.cs Demo";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ForceDirectedGraph_Paint);
             this.ResumeLayout(false);
@@ -271,8 +291,9 @@
         private System.Windows.Forms.ListBox lbEdge;
         private System.Windows.Forms.Button btnRemoveNode;
         private System.Windows.Forms.Button btnRemoveEdge;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pDrawPanel;
         private System.Windows.Forms.Button btnChangeProperties;
+        private System.Windows.Forms.Button button1;
     }
 }
 

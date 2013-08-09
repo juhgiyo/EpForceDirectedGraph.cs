@@ -53,7 +53,13 @@ namespace EpForceDirectedGraph
             
             
         }
-
+        public void Set(int iFromX, int iFromY, int iToX,int iToY)
+        {
+            this.fromX = iFromX + 9;
+            this.fromY = iFromY + 9;
+            this.toX = iToX + 9;
+            this.toY = iToY + 9;
+        }
         public void DrawLine(Graphics iPaper)
         {
             iPaper.DrawLine(pen, fromX, fromY, toX, toY);

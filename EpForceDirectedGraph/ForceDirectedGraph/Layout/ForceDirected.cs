@@ -68,19 +68,19 @@ namespace EpForceDirectedGraph
     	public float Stiffness
         {
             get;
-            protected set;
+            set;
         }
 
         public float Repulsion
         {
             get;
-            protected set;
+            set;
         }
 
         public float Damping
         {
             get;
-            protected set;
+            set;
         }
 
         public float Threadshold
@@ -89,7 +89,11 @@ namespace EpForceDirectedGraph
             set;
         }
 
-
+        public bool WithinThreashold
+        {
+            get;
+            private set;
+        }
         protected Dictionary<string, Point> nodePoints;
         protected Dictionary<string, Spring> edgeSprings;
         public IGraph graph
@@ -122,13 +126,17 @@ namespace EpForceDirectedGraph
                 Spring existingSpring = null;
 
                 List<Edge> fromEdges= graph.GetEdges(iEdge.Source,iEdge.Target);
-                foreach(Edge e in fromEdges)
+                if (fromEdges != null)
                 {
-                    if(existingSpring==null && edgeSprings.ContainsKey(e.ID))
+                    foreach (Edge e in fromEdges)
                     {
-                        existingSpring=edgeSprings[e.ID];
-                        break;
+                        if (existingSpring == null && edgeSprings.ContainsKey(e.ID))
+                        {
+                            existingSpring = edgeSprings[e.ID];
+                            break;
+                        }
                     }
+                
                 }
                 if(existingSpring!=null)
                 {
@@ -136,20 +144,24 @@ namespace EpForceDirectedGraph
                 }
 
                 List<Edge> toEdges = graph.GetEdges(iEdge.Target,iEdge.Source);
-                foreach(Edge e in toEdges)
+                if (toEdges != null)
                 {
-                    if(existingSpring==null && edgeSprings.ContainsKey(e.ID))
+                    foreach (Edge e in toEdges)
                     {
-                        existingSpring=edgeSprings[e.ID];
-                        break;
+                        if (existingSpring == null && edgeSprings.ContainsKey(e.ID))
+                        {
+                            existingSpring = edgeSprings[e.ID];
+                            break;
+                        }
                     }
                 }
+                
                 if(existingSpring!=null)
                 {
                     return new Spring(existingSpring.point2, existingSpring.point1, 0.0f, 0.0f);
                 }
+                 edgeSprings[iEdge.ID] = new Spring(GetPoint(iEdge.Source), GetPoint(iEdge.Target), length, Stiffness);
 
-                edgeSprings[iEdge.ID] = new Spring(GetPoint(iEdge.Source), GetPoint(iEdge.Target), length, Stiffness);
             }
             return edgeSprings[iEdge.ID];
         }
@@ -176,18 +188,23 @@ namespace EpForceDirectedGraph
                         else if (n1.Pinned)
                         {
                             point1.ApplyForce(direction*0.0f);
-                            point2.ApplyForce((direction * Repulsion) / (distance * distance * -1.0f));
+                            //point2.ApplyForce((direction * Repulsion) / (distance * distance * -1.0f));
+                            point2.ApplyForce((direction * Repulsion) / (distance * -1.0f));
                         }
                         else if (n2.Pinned)
                         {
-                            point1.ApplyForce((direction * Repulsion) / (distance * distance));
+                            //point1.ApplyForce((direction * Repulsion) / (distance * distance));
+                            point1.ApplyForce((direction * Repulsion) / (distance));
                             point2.ApplyForce(direction * 0.0f);
                         }
                         else
                         {
-                            point1.ApplyForce((direction * Repulsion) / (distance * distance * 0.5f));
-                            point2.ApplyForce((direction * Repulsion) / (distance * distance * -0.5f));
+//                             point1.ApplyForce((direction * Repulsion) / (distance * distance * 0.5f));
+//                             point2.ApplyForce((direction * Repulsion) / (distance * distance * -0.5f));
+                            point1.ApplyForce((direction * Repulsion) / (distance * 0.5f));
+                            point2.ApplyForce((direction * Repulsion) / (distance * -0.5f));
                         }
+
                     }
                 }
             }
@@ -229,13 +246,13 @@ namespace EpForceDirectedGraph
 
         protected void AttractToCentre()
         {
-            foreach(Node n in graph.nodes)
-            {
-                Point point = GetPoint(n);
-                AbstractVector direction = point.position*-1.0f;
-                if(!point.node.Pinned)
-                    point.ApplyForce(direction*(Repulsion/50.0f));
-            }
+//             foreach(Node n in graph.nodes)
+//             {
+//                 Point point = GetPoint(n);
+//                 AbstractVector direction = point.position*-1.0f;
+//                 if(!point.node.Pinned)
+//                     point.ApplyForce(direction*(Repulsion/50.0f));
+//             }
         }
 
         protected void UpdateVelocity(float iTimeStep)
@@ -277,7 +294,12 @@ namespace EpForceDirectedGraph
             AttractToCentre();
             UpdateVelocity(iTimeStep);
             UpdatePosition(iTimeStep);
-            
+            if (TotalEnergy() < Threadshold)
+            {
+                WithinThreashold = true;
+            }
+            else
+                WithinThreashold = false;
         }
 
 
@@ -330,7 +352,10 @@ namespace EpForceDirectedGraph
         {
             if (!(nodePoints.ContainsKey(iNode.ID)))
             {
-                nodePoints[iNode.ID] = new Point(Vector2.Random(), Vector2.Zero(), Vector2.Zero(), iNode);
+                Vector2 iniPosition = iNode.Data.initialPostion as Vector2;
+                if (iniPosition == null)
+                    iniPosition = Vector2.Random() as Vector2;
+                nodePoints[iNode.ID] = new Point(iniPosition, Vector2.Zero(), Vector2.Zero(), iNode);
             }
             return nodePoints[iNode.ID];
         }
@@ -373,7 +398,10 @@ namespace EpForceDirectedGraph
         {
             if (!(nodePoints.ContainsKey(iNode.ID)))
             {
-                nodePoints[iNode.ID] = new Point(Vector3.Random(), Vector3.Zero(), Vector3.Zero(), iNode);
+                Vector3 iniPosition = iNode.Data.initialPostion as Vector3;
+                if (iniPosition == null)
+                    iniPosition = Vector3.Random() as Vector3;
+                nodePoints[iNode.ID] = new Point(iniPosition, Vector3.Zero(), Vector3.Zero(), iNode);
             }
             return nodePoints[iNode.ID];
         }

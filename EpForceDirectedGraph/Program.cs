@@ -15,7 +15,7 @@ namespace EpForceDirectedGraph
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ForceDirectedGraph());
+            Application.Run(new ForceDirectedGraphForm());
         }
     }
 }

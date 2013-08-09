@@ -38,8 +38,8 @@ namespace EpForceDirectedGraph
 {
     class Renderer:AbstractRenderer
     {
-        ForceDirectedGraph form;
-        public Renderer(ForceDirectedGraph iForm,IForceDirected iForceDirected)
+        ForceDirectedGraphForm form;
+        public Renderer(ForceDirectedGraphForm iForm,IForceDirected iForceDirected)
             : base(iForceDirected)
         {
             form = iForm;
@@ -53,13 +53,14 @@ namespace EpForceDirectedGraph
         protected override void DrawEdge(Edge iEdge, AbstractVector iPosition1, AbstractVector iPosition2)
         {
             //TODO: Change positions of line
-            form.DrawLine(iEdge);
+            
+            form.DrawLine(iEdge,iPosition1,iPosition2);
         }
 
         protected override void DrawNode(Node iNode, AbstractVector iPosition)
         {
             //TODO: Change positions of line
-            form.DrawBox(iNode);
+            form.DrawBox(iNode,iPosition);
         }
 
 

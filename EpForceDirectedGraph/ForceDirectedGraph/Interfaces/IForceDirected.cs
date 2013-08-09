@@ -65,7 +65,10 @@ namespace EpForceDirectedGraph
             get;
             set;
         }
-
+        bool WithinThreashold
+        {
+            get;
+        }
 
         void Calculate(float iTimeStep);
         void EachEdge(EdgeAction del);

@@ -42,6 +42,7 @@ namespace EpForceDirectedGraph
             mass = 1.0f;
             length = 1.0f;
             label = "";
+            initialPostion = null;
         }
         public float mass
         {
@@ -60,5 +61,12 @@ namespace EpForceDirectedGraph
             get;
             set;
         }
+
+        public AbstractVector initialPostion
+        {
+            get;
+            set;
+        }
+
     }
 }

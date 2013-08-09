@@ -38,6 +38,13 @@ namespace EpForceDirectedGraph
     public class Vector3:AbstractVector
     {
 
+        public Vector3()
+            : base()
+        {
+            x = 0.0f;
+            y = 0.0f;
+            z = 0.0f;
+        }
 
         public Vector3(float iX, float iY, float iZ):base()
         {

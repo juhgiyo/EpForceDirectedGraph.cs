@@ -53,7 +53,7 @@ namespace EpForceDirectedGraph
             switch (iType)
             {
                 case BoxType.Normal:
-                    brush = new SolidBrush(Color.WhiteSmoke);
+                    brush = new SolidBrush(Color.Black);
                     break;
                 case BoxType.Pinned:
                     brush = new SolidBrush(Color.Red);
@@ -65,10 +65,16 @@ namespace EpForceDirectedGraph
             boxRec = new Rectangle(x, y, width, height);
         }
 
-        public void DrawBox(Graphics iPaper)
+        public void Set(int iX, int iY)
         {
+            this.x = iX;
+            this.y = iY;
             boxRec.X = x;
             boxRec.Y = y;
+        }
+        public void DrawBox(Graphics iPaper)
+        {
+
             iPaper.FillRectangle(brush, boxRec);
          
         }

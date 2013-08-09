@@ -37,7 +37,13 @@ namespace EpForceDirectedGraph
 {
     public class Vector2:AbstractVector
     {
-
+        public Vector2()
+            : base()
+        {
+            x = 0.0f;
+            y = 0.0f;
+            z = 0.0f;
+        }
         public Vector2(float iX, float iY):base()
         {
             x = iX;
@@ -182,7 +188,9 @@ namespace EpForceDirectedGraph
 
         public static AbstractVector Random()
         {
-            return new Vector2(10.0f * (Util.Random(random) - 0.5f), 10.0f * (Util.Random(random) - 0.5f));
+            
+            Vector2 retVec=new Vector2(10.0f * (Util.Random(random) - 0.5f), 10.0f * (Util.Random(random) - 0.5f));
+            return retVec;
         }
 
         public static Vector2 operator +(Vector2 a, Vector2 b)

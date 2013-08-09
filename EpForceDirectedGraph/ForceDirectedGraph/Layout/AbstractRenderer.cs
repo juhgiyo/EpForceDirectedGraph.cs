@@ -56,7 +56,6 @@ namespace EpForceDirectedGraph
             {
                 DrawNode(node, point.position);
             });
-
         }
         public abstract void Clear();
         protected abstract void DrawEdge(Edge iEdge, AbstractVector iPosition1, AbstractVector iPosition2);

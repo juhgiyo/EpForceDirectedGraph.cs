@@ -39,9 +39,7 @@ namespace EpForceDirectedGraph
     {
         public static float Random(Random random)
         {
-            var result = (random.NextDouble()
-                          * (Single.MaxValue - (double)Single.MinValue))
-                          + Single.MinValue;
+            var result = random.NextDouble();
             return (float)result;
         }
     }

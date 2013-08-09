@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DoubleBufferPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ForceDirectedGraph\Graph\Edge.cs" />
     <Compile Include="ForceDirectedGraph\Graph\PhysicsData.cs" />
     <Compile Include="GridBox.cs" />

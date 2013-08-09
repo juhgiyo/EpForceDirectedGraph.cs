@@ -46,6 +46,7 @@ namespace EpForceDirectedGraph
                 Data = new PhysicsData();
                 Data.label = iId;
             }
+            Pinned = false;
         }
 
         public string ID

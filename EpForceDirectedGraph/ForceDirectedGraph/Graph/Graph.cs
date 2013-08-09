@@ -170,6 +170,37 @@ namespace EpForceDirectedGraph
             return null;
         }
 
+        public List<Edge> GetEdges(Node iNode)
+        {
+            List<Edge> retEdgeList = new List<Edge>();
+            if (adjacencySet.ContainsKey(iNode.ID))
+            {
+                foreach (KeyValuePair<string, List<Edge>> keyPair in adjacencySet[iNode.ID])
+                {
+                    foreach (Edge e in keyPair.Value)
+                    {
+                        retEdgeList.Add(e);
+                    }
+                }
+            }
+
+            foreach (KeyValuePair<string, Dictionary<string, List<Edge>>> keyValuePair in adjacencySet)
+            {
+                if (keyValuePair.Key != iNode.ID)
+                {
+                    foreach (KeyValuePair<string, List<Edge>> keyPair in adjacencySet[keyValuePair.Key])
+                    {
+                        foreach (Edge e in keyPair.Value)
+                        {
+                            retEdgeList.Add(e);
+                        }
+                    }
+
+                }
+            }
+            return retEdgeList;
+        }
+
         public void RemoveNode(Node iNode)
         {
             if (nodeSet.ContainsKey(iNode.ID))
@@ -215,6 +246,31 @@ namespace EpForceDirectedGraph
 
         }
 
+        public Node GetNode(string label)
+        {
+            Node retNode = null;
+            nodes.ForEach(delegate(Node n)
+            {
+                if (n.Data.label == label)
+                {
+                    retNode = n;
+                }
+            });
+            return retNode;
+        }
+
+        public Edge GetEdge(string label)
+        {
+            Edge retEdge = null;
+            edges.ForEach(delegate(Edge e)
+            {
+                if (e.Data.label == label)
+                {
+                    retEdge = e;
+                }
+            });
+            return retEdge;
+        }
         public void Merge(Graph iMergeGraph)
         {
             foreach (Node n in iMergeGraph.nodes)

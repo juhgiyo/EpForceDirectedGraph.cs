@@ -81,7 +81,7 @@ namespace EpForceDirectedGraph
             Notify();
             return iEdge;
         }
-        public void CreateNodes(List<PhysicsData> iDataList)
+        public void CreateNodes(List<NodeData> iDataList)
         {
             for (int listTrav = 0; listTrav < iDataList.Count; listTrav++)
             {
@@ -97,7 +97,7 @@ namespace EpForceDirectedGraph
             }
         }
 
-        public void CreateEdges(List<Triple<string, string, PhysicsData>> iDataList)
+        public void CreateEdges(List<Triple<string, string, EdgeData>> iDataList)
         {
             for (int listTrav = 0; listTrav < iDataList.Count; listTrav++)
             {
@@ -125,23 +125,25 @@ namespace EpForceDirectedGraph
             }
         }
 
-        public Node CreateNode(PhysicsData data)
+        public Node CreateNode(NodeData data)
         {
-            Node tNewNode = new Node(data.label, data);
+            Node tNewNode = new Node(nextNodeId.ToString(), data);
             nextNodeId++;
             AddNode(tNewNode);
             return tNewNode;
         }
 
-        public Node CreateNode(string name)
+        public Node CreateNode(string label)
         {
-            Node tNewNode = new Node(name);
+            NodeData data = new NodeData();
+            data.label = label;
+            Node tNewNode = new Node(nextNodeId.ToString(),data);
             nextNodeId++;
             AddNode(tNewNode);
             return tNewNode;
         }
 
-        public Edge CreateEdge(Node iSource, Node iTarget, PhysicsData iData=null)
+        public Edge CreateEdge(Node iSource, Node iTarget, EdgeData iData = null)
         {
             Edge tNewEdge = new Edge(nextEdgeId.ToString(), iSource, iTarget, iData);
             nextEdgeId++;
@@ -149,7 +151,7 @@ namespace EpForceDirectedGraph
             return tNewEdge;
         }
 
-        public Edge CreateEdge(string iSource, string iTarget, PhysicsData iData=null)
+        public Edge CreateEdge(string iSource, string iTarget, EdgeData iData = null)
         {
             if (!nodeSet.ContainsKey(iSource))
                 return null;
@@ -277,14 +279,17 @@ namespace EpForceDirectedGraph
         {
             foreach (Node n in iMergeGraph.nodes)
             {
-                nodes.Add(new Node(n.ID, n.Data));
+                Node mergeNode = new Node(nextNodeId.ToString(), n.Data);
+                AddNode(mergeNode);
+                nextNodeId++;
+                mergeNode.Data.origID=n.ID;
             }
 
             foreach (Edge e in iMergeGraph.edges)
             {
                 Node fromNode = nodes.Find(delegate(Node n)
                 {
-                    if (e.Source.ID == n.ID)
+                    if (e.Source.ID == n.Data.origID)
                     {
                         return true;
                     }
@@ -293,21 +298,15 @@ namespace EpForceDirectedGraph
 
                 Node toNode = nodes.Find(delegate(Node n)
                 {
-                    if (e.Target.ID == n.ID)
+                    if (e.Target.ID == n.Data.origID)
                     {
                         return true;
                     }
                     return false;
                 });
 
-                string id = (e.Directed) ? (e.GetType().ToString() + "-" + fromNode.ID + "-" + toNode.ID)
-                    : (fromNode.ID.CompareTo(toNode.ID)<0)
-                        ? e.GetType().ToString() + "-" + fromNode.ID + "-" + toNode.ID
-                        : e.GetType().ToString() + "-" + toNode.ID + "-" + fromNode.ID;
-                Edge tNewEdge = AddEdge(new Edge(id, fromNode, toNode, e.Data));
-
-
-
+                Edge tNewEdge = AddEdge(new Edge(nextEdgeId.ToString(), fromNode, toNode, e.Data));
+                nextEdgeId++;
             }
         }
 

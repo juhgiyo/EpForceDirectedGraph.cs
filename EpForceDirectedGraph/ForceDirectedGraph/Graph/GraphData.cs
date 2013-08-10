@@ -35,28 +35,15 @@ using System.Text;
 
 namespace EpForceDirectedGraph
 {
-    public class PhysicsData
+    public class NodeData : GraphData
     {
-        public PhysicsData()
+        public NodeData():base()
         {
             mass = 1.0f;
-            length = 1.0f;
-            label = "";
             initialPostion = null;
+            origID = ""; // for merging the graph
         }
         public float mass
-        {
-            get;
-            set;
-        }
-
-        public float length
-        {
-            get;
-            set;
-        }
-
-        public string label
         {
             get;
             set;
@@ -67,6 +54,41 @@ namespace EpForceDirectedGraph
             get;
             set;
         }
+        public string origID
+        {
+            get;
+            set;
+        }
+
+    }
+    public class EdgeData:GraphData
+    {
+        public EdgeData():base()
+        {
+            length = 1.0f;
+        }
+        public float length
+        {
+            get;
+            set;
+        }
+
+
+    }
+    public class GraphData
+    {
+        public GraphData()
+        {
+            label = "";
+        }
+
+
+        public string label
+        {
+            get;
+            set;
+        }
+
 
     }
 }

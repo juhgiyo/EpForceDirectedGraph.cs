@@ -39,14 +39,14 @@ namespace EpForceDirectedGraph
     {
         Node AddNode(Node iNode);
         Edge AddEdge(Edge iEdge);
-        void CreateNodes(List<PhysicsData> iDataList);
+        void CreateNodes(List<NodeData> iDataList);
         void CreateNodes(List<string> iNameList);
-        void CreateEdges(List<Triple<string, string, PhysicsData>> iDataList);
+        void CreateEdges(List<Triple<string, string, EdgeData>> iDataList);
         void CreateEdges(List<Pair<string, string>> iDataList);
-        Node CreateNode(PhysicsData data);
+        Node CreateNode(NodeData data);
         Node CreateNode(string name);
-        Edge CreateEdge(Node iSource, Node iTarget, PhysicsData iData = null);
-        Edge CreateEdge(string iSource, string iTarget, PhysicsData iData = null);
+        Edge CreateEdge(Node iSource, Node iTarget, EdgeData iData = null);
+        Edge CreateEdge(string iSource, string iTarget, EdgeData iData = null);
         List<Edge> GetEdges(Node iNode1, Node iNode2);
         void RemoveNode(Node iNode);
         void DetachNode(Node iNode);

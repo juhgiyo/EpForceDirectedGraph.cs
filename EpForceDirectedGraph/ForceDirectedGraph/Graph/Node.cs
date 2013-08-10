@@ -37,14 +37,15 @@ namespace EpForceDirectedGraph
 {
     public class Node
     {
-        public Node(string iId, PhysicsData iData=null)
+        public Node(string iId, NodeData iData = null)
         {
             ID = iId;
-            Data = iData;
-            if (Data == null)
+            Data = new NodeData();
+            if (Data != null)
             {
-                Data = new PhysicsData();
-                Data.label = iId;
+                Data.initialPostion = iData.initialPostion;
+                Data.label = iData.label;
+                Data.mass = iData.mass;
             }
             Pinned = false;
         }
@@ -54,7 +55,7 @@ namespace EpForceDirectedGraph
             get;
             private set;
         }
-        public PhysicsData Data
+        public NodeData Data
         {
             get;
             private set;

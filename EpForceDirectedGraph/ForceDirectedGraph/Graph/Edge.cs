@@ -37,12 +37,12 @@ namespace EpForceDirectedGraph
 {
     public class Edge
     {
-        public Edge(string iId, Node iSource, Node iTarget, PhysicsData iData)
+        public Edge(string iId, Node iSource, Node iTarget, EdgeData iData)
         {
             ID = iId;
             Source = iSource;
             Target = iTarget;
-            Data = (iData!=null)? iData : new PhysicsData();
+            Data = (iData != null) ? iData : new EdgeData();
             Directed = false;
         }
 
@@ -51,7 +51,7 @@ namespace EpForceDirectedGraph
             get;
             private set;
         }
-        public PhysicsData Data
+        public EdgeData Data
         {
             get;
             private set;

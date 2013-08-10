@@ -50,7 +50,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ForceDirectedGraph\Graph\Edge.cs" />
-    <Compile Include="ForceDirectedGraph\Graph\PhysicsData.cs" />
+    <Compile Include="ForceDirectedGraph\Graph\GraphData.cs" />
     <Compile Include="GridBox.cs" />
     <Compile Include="GridLine.cs" />
     <Compile Include="ForceDirectedGraph\Interfaces\IGraph.cs" />

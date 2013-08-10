@@ -168,7 +168,7 @@ namespace EpForceDirectedGraph
             }
             Node node1 = m_fdgGraph.GetNode(nodeName1);
             Node node2 = m_fdgGraph.GetNode(nodeName2);
-            PhysicsData data = new PhysicsData();
+            EdgeData data = new EdgeData();
             
             string label = nodeName1 + "-" + nodeName2;
             data.label = label;

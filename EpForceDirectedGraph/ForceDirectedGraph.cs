@@ -278,6 +278,21 @@ namespace EpForceDirectedGraph
                 clickedNode.Pinned = true;
                 m_fdgPhysics.GetPoint(clickedNode).position = vec;
             }
+            else
+            {
+                foreach (KeyValuePair<Node, GridBox> keyPair in m_fdgBoxes)
+                {
+                    if(keyPair.Value.boxRec.IntersectsWith(new Rectangle(e.Location,new Size(1,1))))
+                    {
+                        keyPair.Value.boxType = BoxType.Pinned;
+                    }
+                    else
+                    {
+                        keyPair.Value.boxType = BoxType.Normal;
+                    }
+                }
+
+            }
         }
 
         private void pDrawPanel_MouseUp(object sender, MouseEventArgs e)

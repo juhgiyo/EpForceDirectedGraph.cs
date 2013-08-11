@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
-
+using System.Xml;
+using System.IO;
 
 
 namespace EpForceDirectedGraph
@@ -136,6 +137,21 @@ namespace EpForceDirectedGraph
             m_fdgPhysics.Damping = damping;
         }
 
+        private bool addNode(string nodeName)
+        {
+            nodeName = nodeName.Trim();
+            if (m_fdgGraph.GetNode(tbNodeName.Text) != null)
+            {
+                return false;
+            }
+            Node newNode = m_fdgGraph.CreateNode(nodeName);
+            m_fdgBoxes[newNode] = new GridBox(0, 0, BoxType.Normal);
+
+            cbbFromNode.Items.Add(nodeName);
+            cbbToNode.Items.Add(nodeName);
+            lbNode.Items.Add(nodeName);
+            return true;
+        }
         private void btnAddNode_Click(object sender, EventArgs e)
         {
             tbNodeName.Text=tbNodeName.Text.Trim();
@@ -144,32 +160,24 @@ namespace EpForceDirectedGraph
                 MessageBox.Show("Please type in the node name to insert!");
                 return;
             }
-            if (m_fdgGraph.GetNode(tbNodeName.Text) != null)
+            if (!addNode(tbNodeName.Text))
             {
                 MessageBox.Show("Node already exists in the graph!");
                 return;
             }
-           Node newNode= m_fdgGraph.CreateNode(tbNodeName.Text);
-           m_fdgBoxes[newNode] = new GridBox(0, 0, BoxType.Normal);
-
-           cbbFromNode.Items.Add(tbNodeName.Text);
-           cbbToNode.Items.Add(tbNodeName.Text);
-           lbNode.Items.Add(tbNodeName.Text);
         }
-
-        private void btnAddEdge_Click(object sender, EventArgs e)
+        private bool addEdge(string nodeName1, string nodeName2)
         {
-            string nodeName1 = cbbFromNode.Text;
-            string nodeName2 = cbbToNode.Text;
+            nodeName1 = nodeName1.Trim();
+            nodeName2 = nodeName2.Trim();
             if (nodeName1 == nodeName2)
             {
-                MessageBox.Show("Edge cannot be connected to same node!");
-                return;
+                return false;
             }
             Node node1 = m_fdgGraph.GetNode(nodeName1);
             Node node2 = m_fdgGraph.GetNode(nodeName2);
             EdgeData data = new EdgeData();
-            
+
             string label = nodeName1 + "-" + nodeName2;
             data.label = label;
             data.length = 60.0f;
@@ -178,6 +186,17 @@ namespace EpForceDirectedGraph
             m_fdgLines[newEdge] = new GridLine(0, 0, 0, 0);
 
             lbEdge.Items.Add(label);
+            return true;
+        }
+        private void btnAddEdge_Click(object sender, EventArgs e)
+        {
+            string nodeName1 = cbbFromNode.Text;
+            string nodeName2 = cbbToNode.Text;
+            if (!addEdge(nodeName1,  nodeName2))
+            {
+                MessageBox.Show("Edge cannot be connected to same node!");
+                return;
+            }
         }
 
         private void btnRemoveNode_Click(object sender, EventArgs e)
@@ -306,6 +325,85 @@ namespace EpForceDirectedGraph
                 btnChangeProperties_Click(sender, e);
                 tbDamping.Focus();
             }
+        }
+
+        
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            DialogResult result = fileDialog.ShowDialog(); // Show the dialog.
+            if (result == DialogResult.OK) // Test result.
+            {
+                string file = fileDialog.FileName;
+                try
+                {
+                    string text = File.ReadAllText(file);
+                    Int32 size = text.Length;
+
+                    StringReader mapXML = new StringReader(text);
+                    XmlTextReader xmlReader = new XmlTextReader(mapXML);
+                    while (xmlReader.Read())
+                    {
+                        switch (xmlReader.NodeType)
+                        {
+                            case XmlNodeType.Element: // The node is an Element.
+                                if (xmlReader.Name == "Node")
+                                {
+                                    loadNode(xmlReader);
+                                }
+                                else if (xmlReader.Name == "Edge")
+                                {
+                                    loadEdge(xmlReader);
+                                }
+                                break;
+
+                            case XmlNodeType.Text: //Display the text in each element.
+                                break;
+                            case XmlNodeType.EndElement: //Display end of element.
+                                break;
+                        }
+                    }
+                }
+                catch (IOException)
+                {
+                }
+            }
+
+
+        }
+
+        private void loadNode(XmlTextReader iXmlReader)
+        {
+            while (iXmlReader.MoveToNextAttribute()) // Read attributes.
+            {
+                if (iXmlReader.Name == "nodeName")
+                    addNode(iXmlReader.Value);
+            }
+        }
+        private void loadEdge(XmlTextReader iXmlReader)
+        {
+            string nodeName1 = null;
+            string nodeName2 = null;
+            while (iXmlReader.MoveToNextAttribute()) // Read attributes.
+            {
+                if (iXmlReader.Name == "nodeName1")
+                    nodeName1=iXmlReader.Value;
+                if (iXmlReader.Name == "nodeName2")
+                    nodeName2 = iXmlReader.Value;
+            }
+            addEdge(nodeName1, nodeName2);
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            m_fdgPhysics.Clear();
+            m_fdgGraph.Clear();
+            m_fdgBoxes.Clear();
+            m_fdgLines.Clear();
+            lbEdge.Items.Clear();
+            lbNode.Items.Clear();
+            cbbFromNode.Items.Clear();
+            cbbToNode.Items.Clear();
         }
     }
 }

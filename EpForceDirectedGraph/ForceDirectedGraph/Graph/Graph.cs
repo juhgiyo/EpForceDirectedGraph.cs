@@ -45,7 +45,12 @@ namespace EpForceDirectedGraph
             eventListeners = new List<IGraphEventListener>();
             adjacencySet = new Dictionary<string, Dictionary<string, List<Edge>>>();
         }
-
+        public void Clear()
+        {
+            nodes.Clear();
+            edges.Clear();
+            adjacencySet.Clear();
+        }
         public Node AddNode(Node iNode)
         {
             if (!nodeSet.ContainsKey(iNode.ID))
@@ -145,6 +150,9 @@ namespace EpForceDirectedGraph
 
         public Edge CreateEdge(Node iSource, Node iTarget, EdgeData iData = null)
         {
+            if (iSource == null || iTarget == null)
+                return null;
+
             Edge tNewEdge = new Edge(nextEdgeId.ToString(), iSource, iTarget, iData);
             nextEdgeId++;
             AddEdge(tNewEdge);

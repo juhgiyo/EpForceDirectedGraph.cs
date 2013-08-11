@@ -101,6 +101,12 @@ namespace EpForceDirectedGraph
             get;
             protected set;
         }
+        public void Clear()
+        {
+            nodePoints.Clear();
+            edgeSprings.Clear();
+            graph.Clear();
+        }
 
         public ForceDirected(IGraph iGraph, float iStiffness, float iRepulsion, float iDamping)
         {

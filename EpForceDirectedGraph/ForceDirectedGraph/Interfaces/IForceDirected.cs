@@ -69,7 +69,7 @@ namespace EpForceDirectedGraph
         {
             get;
         }
-
+        void Clear();
         void Calculate(float iTimeStep);
         void EachEdge(EdgeAction del);
         void EachNode(NodeAction del);

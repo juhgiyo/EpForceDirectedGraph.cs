@@ -37,6 +37,7 @@ namespace EpForceDirectedGraph
 {
     public interface IGraph
     {
+        void Clear();
         Node AddNode(Node iNode);
         Edge AddEdge(Edge iEdge);
         void CreateNodes(List<NodeData> iDataList);

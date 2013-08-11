@@ -47,6 +47,8 @@
             this.btnRemoveEdge = new System.Windows.Forms.Button();
             this.btnChangeProperties = new System.Windows.Forms.Button();
             this.pDrawPanel = new EpForceDirectedGraph.DoubleBufferPanel();
+            this.btnLoad = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbStiffness
@@ -233,12 +235,34 @@
             this.pDrawPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pDrawPanel_MouseMove);
             this.pDrawPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pDrawPanel_MouseUp);
             // 
+            // btnLoad
+            // 
+            this.btnLoad.Location = new System.Drawing.Point(12, 50);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(129, 23);
+            this.btnLoad.TabIndex = 18;
+            this.btnLoad.Text = "Load from XML...";
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(147, 50);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.TabIndex = 19;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
             // ForceDirectedGraphForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.ClientSize = new System.Drawing.Size(691, 561);
+            this.Controls.Add(this.btnClear);
+            this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.btnChangeProperties);
             this.Controls.Add(this.pDrawPanel);
             this.Controls.Add(this.btnRemoveEdge);
@@ -288,6 +312,8 @@
         private System.Windows.Forms.Button btnRemoveEdge;
         private System.Windows.Forms.Button btnChangeProperties;
         private DoubleBufferPanel pDrawPanel;
+        private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.Button btnClear;
     }
 }
 

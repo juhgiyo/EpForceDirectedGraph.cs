@@ -90,7 +90,7 @@ namespace EpForceDirectedGraph
         {
             if (a is Vector2 && b is Vector2)
                 return (a as Vector2) - (b as Vector2);
-            else if (a is Vector3 && b is Vector2)
+            else if (a is Vector3 && b is Vector3)
                 return (a as Vector3) - (b as Vector3);
             return null;
         }

@@ -196,7 +196,7 @@ namespace EpForceDirectedGraph
         public static AbstractVector Random()
         {
             
-            Vector2 retVec=new Vector2(10.0f * (Util.Random(random) - 0.5f), 10.0f * (Util.Random(random) - 0.5f));
+            Vector2 retVec=new Vector2(10.0f * (Util.Random() - 0.5f), 10.0f * (Util.Random() - 0.5f));
             return retVec;
         }
 

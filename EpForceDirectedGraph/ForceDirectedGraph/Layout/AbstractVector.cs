@@ -44,7 +44,6 @@ namespace EpForceDirectedGraph
 {
     public abstract class AbstractVector:IVector
     {
-        protected static Random random=new Random();
 
         public float x
         {

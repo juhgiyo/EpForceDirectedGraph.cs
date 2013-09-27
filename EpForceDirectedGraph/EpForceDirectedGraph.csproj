@@ -49,6 +49,9 @@
     <Compile Include="DoubleBufferPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ForceDirectedGraph\General\Pair.cs" />
+    <Compile Include="ForceDirectedGraph\General\Triple.cs" />
+    <Compile Include="ForceDirectedGraph\General\Util.cs" />
     <Compile Include="ForceDirectedGraph\Graph\Edge.cs" />
     <Compile Include="ForceDirectedGraph\Graph\GraphData.cs" />
     <Compile Include="GridBox.cs" />
@@ -66,9 +69,6 @@
     <Compile Include="ForceDirectedGraph\Layout\AbstractVector.cs" />
     <Compile Include="ForceDirectedGraph\Layout\Vector2.cs" />
     <Compile Include="ForceDirectedGraph\Layout\Vector3.cs" />
-    <Compile Include="ForceDirectedGraph\Util.cs" />
-    <Compile Include="ForceDirectedGraph\Pair.cs" />
-    <Compile Include="ForceDirectedGraph\Triple.cs" />
     <Compile Include="ForceDirectedGraph.cs">
       <SubType>Form</SubType>
     </Compile>

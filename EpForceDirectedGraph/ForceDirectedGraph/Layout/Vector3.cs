@@ -200,7 +200,7 @@ namespace EpForceDirectedGraph
 
         public static AbstractVector Random()
         {
-            return new Vector3(10.0f * (Util.Random(random) - 0.5f), 10.0f * (Util.Random(random) - 0.5f), 10.0f * (Util.Random(random) - 0.5f));
+            return new Vector3(10.0f * (Util.Random() - 0.5f), 10.0f * (Util.Random() - 0.5f), 10.0f * (Util.Random() - 0.5f));
         }
 
         public static Vector3 operator +(Vector3 a, Vector3 b)

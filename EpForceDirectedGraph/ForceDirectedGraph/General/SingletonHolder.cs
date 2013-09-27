@@ -1,9 +1,9 @@
-﻿/*! 
-@file Util.cs
+/*! 
+@file SingletonHolder.cs
 @author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
 		<http://github.com/juhgiyo/epForceDirectedGraph.cs>
 @date August 08, 2013
-@brief Util Interface
+@brief SingletonHolder Interface
 @version 1.0
 
 @section LICENSE
@@ -32,24 +32,35 @@ THE SOFTWARE.
 
 @section DESCRIPTION
 
-An Interface for the Util Class.
+An Interface for the SingletonHolder Class.
 
 */
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 namespace General
 {
-    public class Util
+    public class SingletonHolder<T> where T : new()
     {
-        private static Random random = new Random();
-        public static float Random()
+        private static T instance;
+
+        private SingletonHolder()
         {
-            var result = random.NextDouble();
-            return (float)result;
+        }
+
+        public static T Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new T();
+                }
+                return instance;
+            }
         }
     }
-
 }

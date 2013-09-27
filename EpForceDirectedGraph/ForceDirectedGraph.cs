@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Xml;
 using System.IO;
-
+using General;
 
 namespace EpForceDirectedGraph
 {

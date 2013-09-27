@@ -50,6 +50,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ForceDirectedGraph\General\Pair.cs" />
+    <Compile Include="ForceDirectedGraph\General\PriorityQueue.cs" />
+    <Compile Include="ForceDirectedGraph\General\SingletonHolder.cs" />
     <Compile Include="ForceDirectedGraph\General\Triple.cs" />
     <Compile Include="ForceDirectedGraph\General\Util.cs" />
     <Compile Include="ForceDirectedGraph\Graph\Edge.cs" />

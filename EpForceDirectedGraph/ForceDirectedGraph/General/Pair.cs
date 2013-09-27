@@ -41,7 +41,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EpForceDirectedGraph
+namespace General
 {
     public class Pair<T,U>
     {

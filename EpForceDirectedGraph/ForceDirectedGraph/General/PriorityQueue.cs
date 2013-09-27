@@ -1,9 +1,9 @@
-﻿/*! 
-@file Util.cs
+/*! 
+@file PriorityQueue.cs
 @author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
 		<http://github.com/juhgiyo/epForceDirectedGraph.cs>
 @date August 08, 2013
-@brief Util Interface
+@brief PriorityQueue Interface
 @version 1.0
 
 @section LICENSE
@@ -32,23 +32,61 @@ THE SOFTWARE.
 
 @section DESCRIPTION
 
-An Interface for the Util Class.
+An Interface for the PriorityQueue Class.
 
 */
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 namespace General
 {
-    public class Util
+    public class PriorityQueue<T> where T : IComparable
     {
-        private static Random random = new Random();
-        public static float Random()
+        private List<T> data;
+
+        public PriorityQueue()
         {
-            var result = random.NextDouble();
-            return (float)result;
+            this.data = new List<T>();
+        }
+
+        public void Enqueue(T queueItem)
+        {
+            data.Add(queueItem);
+            data.Sort();
+        }
+
+        public void Clear()
+        {
+            data.Clear();
+        }
+
+
+        public T Dequeue()
+        {
+            T frontItem = data[0];
+            data.RemoveAt(0);
+            return frontItem;
+        }
+
+        public T Peek()
+        {
+            T frontItem = data[0];
+            return frontItem;
+        }
+
+        public bool Contains(T queueItem)
+        {
+            return data.Contains(queueItem);
+        }
+        public int Count
+        {
+            get
+            {
+                return data.Count;
+            }
         }
     }
 

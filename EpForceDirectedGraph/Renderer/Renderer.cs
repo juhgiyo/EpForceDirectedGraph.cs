@@ -57,14 +57,14 @@ namespace EpForceDirectedGraph
 
         }
 
-        protected override void DrawEdge(Edge iEdge, AbstractVector iPosition1, AbstractVector iPosition2)
+        protected override void drawEdge(Edge iEdge, AbstractVector iPosition1, AbstractVector iPosition2)
         {
             //TODO: Change positions of line
             
             form.DrawLine(iEdge,iPosition1,iPosition2);
         }
 
-        protected override void DrawNode(Node iNode, AbstractVector iPosition)
+        protected override void drawNode(Node iNode, AbstractVector iPosition)
         {
             //TODO: Change positions of line
             form.DrawBox(iNode,iPosition);

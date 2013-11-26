@@ -101,8 +101,8 @@ namespace EpForceDirectedGraph
             get;
             private set;
         }
-        protected Dictionary<string, Point> nodePoints;
-        protected Dictionary<string, Spring> edgeSprings;
+        protected Dictionary<string, Point> m_nodePoints;
+        protected Dictionary<string, Spring> m_edgeSprings;
         public IGraph graph
         {
             get;
@@ -110,8 +110,8 @@ namespace EpForceDirectedGraph
         }
         public void Clear()
         {
-            nodePoints.Clear();
-            edgeSprings.Clear();
+            m_nodePoints.Clear();
+            m_edgeSprings.Clear();
             graph.Clear();
         }
 
@@ -121,8 +121,8 @@ namespace EpForceDirectedGraph
             Stiffness=iStiffness;
             Repulsion=iRepulsion;
             Damping=iDamping;
-            nodePoints = new Dictionary<string, Point>();
-            edgeSprings = new Dictionary<string, Spring>();
+            m_nodePoints = new Dictionary<string, Point>();
+            m_edgeSprings = new Dictionary<string, Spring>();
 
             Threadshold = 0.01f;
         }
@@ -133,7 +133,7 @@ namespace EpForceDirectedGraph
 
         public Spring GetSpring(Edge iEdge)
         {
-            if(!(edgeSprings.ContainsKey(iEdge.ID)))
+            if(!(m_edgeSprings.ContainsKey(iEdge.ID)))
             {
                 float length = iEdge.Data.length;
                 Spring existingSpring = null;
@@ -143,9 +143,9 @@ namespace EpForceDirectedGraph
                 {
                     foreach (Edge e in fromEdges)
                     {
-                        if (existingSpring == null && edgeSprings.ContainsKey(e.ID))
+                        if (existingSpring == null && m_edgeSprings.ContainsKey(e.ID))
                         {
-                            existingSpring = edgeSprings[e.ID];
+                            existingSpring = m_edgeSprings[e.ID];
                             break;
                         }
                     }
@@ -161,9 +161,9 @@ namespace EpForceDirectedGraph
                 {
                     foreach (Edge e in toEdges)
                     {
-                        if (existingSpring == null && edgeSprings.ContainsKey(e.ID))
+                        if (existingSpring == null && m_edgeSprings.ContainsKey(e.ID))
                         {
-                            existingSpring = edgeSprings[e.ID];
+                            existingSpring = m_edgeSprings[e.ID];
                             break;
                         }
                     }
@@ -173,14 +173,14 @@ namespace EpForceDirectedGraph
                 {
                     return new Spring(existingSpring.point2, existingSpring.point1, 0.0f, 0.0f);
                 }
-                 edgeSprings[iEdge.ID] = new Spring(GetPoint(iEdge.Source), GetPoint(iEdge.Target), length, Stiffness);
+                 m_edgeSprings[iEdge.ID] = new Spring(GetPoint(iEdge.Source), GetPoint(iEdge.Target), length, Stiffness);
 
             }
-            return edgeSprings[iEdge.ID];
+            return m_edgeSprings[iEdge.ID];
         }
 
         // TODO: change this for group only after node grouping
-        protected void ApplyCoulombsLaw()
+        protected void applyCoulombsLaw()
         {
             foreach(Node n1 in graph.nodes)
             {
@@ -223,7 +223,7 @@ namespace EpForceDirectedGraph
             }
         }
 
-        protected void ApplyHookesLaw()
+        protected void applyHookesLaw()
         {
             foreach(Edge e in graph.edges)
             {
@@ -257,7 +257,7 @@ namespace EpForceDirectedGraph
             }
         }
 
-        protected void AttractToCentre()
+        protected void attractToCentre()
         {
             foreach(Node n in graph.nodes)
             {
@@ -275,7 +275,7 @@ namespace EpForceDirectedGraph
              }
         }
 
-        protected void UpdateVelocity(float iTimeStep)
+        protected void updateVelocity(float iTimeStep)
         {
             foreach(Node n in graph.nodes)
             {
@@ -286,7 +286,7 @@ namespace EpForceDirectedGraph
             }
         }
 
-        protected void UpdatePosition(float iTimeStep)
+        protected void updatePosition(float iTimeStep)
         {
             foreach(Node n in graph.nodes)
             {
@@ -295,7 +295,7 @@ namespace EpForceDirectedGraph
             }
         }
 
-        protected float TotalEnergy()
+        protected float getTotalEnergy()
         {
             float energy=0.0f;
             foreach(Node n in graph.nodes)
@@ -309,12 +309,12 @@ namespace EpForceDirectedGraph
 
         public void Calculate(float iTimeStep) // time in second
         {
-            ApplyCoulombsLaw();
-            ApplyHookesLaw();
-            AttractToCentre();
-            UpdateVelocity(iTimeStep);
-            UpdatePosition(iTimeStep);
-            if (TotalEnergy() < Threadshold)
+            applyCoulombsLaw();
+            applyHookesLaw();
+            attractToCentre();
+            updateVelocity(iTimeStep);
+            updatePosition(iTimeStep);
+            if (getTotalEnergy() < Threadshold)
             {
                 WithinThreashold = true;
             }
@@ -370,14 +370,14 @@ namespace EpForceDirectedGraph
 
         public override Point GetPoint(Node iNode)
         {
-            if (!(nodePoints.ContainsKey(iNode.ID)))
+            if (!(m_nodePoints.ContainsKey(iNode.ID)))
             {
                 Vector2 iniPosition = iNode.Data.initialPostion as Vector2;
                 if (iniPosition == null)
                     iniPosition = Vector2.Random() as Vector2;
-                nodePoints[iNode.ID] = new Point(iniPosition, Vector2.Zero(), Vector2.Zero(), iNode);
+                m_nodePoints[iNode.ID] = new Point(iniPosition, Vector2.Zero(), Vector2.Zero(), iNode);
             }
-            return nodePoints[iNode.ID];
+            return m_nodePoints[iNode.ID];
         }
 
         public override BoundingBox GetBoundingBox()
@@ -416,14 +416,14 @@ namespace EpForceDirectedGraph
 
         public override Point GetPoint(Node iNode)
         {
-            if (!(nodePoints.ContainsKey(iNode.ID)))
+            if (!(m_nodePoints.ContainsKey(iNode.ID)))
             {
                 Vector3 iniPosition = iNode.Data.initialPostion as Vector3;
                 if (iniPosition == null)
                     iniPosition = Vector3.Random() as Vector3;
-                nodePoints[iNode.ID] = new Point(iniPosition, Vector3.Zero(), Vector3.Zero(), iNode);
+                m_nodePoints[iNode.ID] = new Point(iniPosition, Vector3.Zero(), Vector3.Zero(), iNode);
             }
-            return nodePoints[iNode.ID];
+            return m_nodePoints[iNode.ID];
         }
 
         public override BoundingBox GetBoundingBox()

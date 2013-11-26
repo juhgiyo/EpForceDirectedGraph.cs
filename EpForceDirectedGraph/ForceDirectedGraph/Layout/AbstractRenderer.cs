@@ -57,16 +57,16 @@ namespace EpForceDirectedGraph
             Clear();
             forceDirected.EachEdge(delegate(Edge edge, Spring spring)
             {
-                DrawEdge(edge, spring.point1.position, spring.point2.position);
+                drawEdge(edge, spring.point1.position, spring.point2.position);
             });
             forceDirected.EachNode(delegate(Node node, Point point)
             {
-                DrawNode(node, point.position);
+                drawNode(node, point.position);
             });
         }
         public abstract void Clear();
-        protected abstract void DrawEdge(Edge iEdge, AbstractVector iPosition1, AbstractVector iPosition2);
-        protected abstract void DrawNode(Node iNode, AbstractVector iPosition);
+        protected abstract void drawEdge(Edge iEdge, AbstractVector iPosition1, AbstractVector iPosition2);
+        protected abstract void drawNode(Node iNode, AbstractVector iPosition);
 
     }
 }

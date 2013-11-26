@@ -2,9 +2,9 @@
 @file SingletonHolder.cs
 @author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
 		<http://github.com/juhgiyo/epForceDirectedGraph.cs>
-@date August 08, 2013
+@date September 27, 2013
 @brief SingletonHolder Interface
-@version 1.0
+@version 2.0
 
 @section LICENSE
 
@@ -45,7 +45,7 @@ namespace General
 {
     public class SingletonHolder<T> where T : new()
     {
-        private static T instance;
+        private static T m_instance;
 
         private SingletonHolder()
         {
@@ -55,11 +55,11 @@ namespace General
         {
             get
             {
-                if (instance == null)
+                if (m_instance == null)
                 {
-                    instance = new T();
+                    m_instance = new T();
                 }
-                return instance;
+                return m_instance;
             }
         }
     }

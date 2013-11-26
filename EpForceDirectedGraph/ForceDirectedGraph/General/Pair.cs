@@ -2,9 +2,9 @@
 @file Pair.cs
 @author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
 		<http://github.com/juhgiyo/epForceDirectedGraph.cs>
-@date August 08, 2013
-@brief Generic Pair Interface
-@version 1.0
+@date September 27, 2013
+@brief Pair Interface
+@version 2.0
 
 @section LICENSE
 
@@ -32,18 +32,19 @@ THE SOFTWARE.
 
 @section DESCRIPTION
 
-An Interface for the Generic Pair Class.
+An Interface for the Pair Class.
 
 */
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace General
 {
-    public class Pair<T,U>
+
+    public class Pair<T, U>
     {
         public Pair()
         {
@@ -59,3 +60,4 @@ namespace General
         public U second { get; set; }
     }
 }
+

@@ -74,13 +74,7 @@ namespace EpForceDirectedGraph
         {
             length = 1.0f;
         }
-        public float length
-        {
-            get;
-            set;
-        }
-
-
+        public float length;
     }
     public class GraphData
     {

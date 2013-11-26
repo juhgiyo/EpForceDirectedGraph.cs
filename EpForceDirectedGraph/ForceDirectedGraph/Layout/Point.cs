@@ -123,6 +123,10 @@ namespace EpForceDirectedGraph
             {
                 return node.Data.mass;
             }
+            private set
+            {
+                node.Data.mass = value;
+            }
         }
         public AbstractVector velocity { get; private set; }
         public AbstractVector acceleration { get; private set; }

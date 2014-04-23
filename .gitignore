@@ -1,0 +1,9 @@
+*.suo
+*.exe
+*.pdb
+*.manifest
+debug/
+release/
+obj/
+EpForceDirectedGraph/obj/x86/Debug/EpForceDirectedGraph.csproj.FileListAbsolute.txt
+EpForceDirectedGraph/obj/x86/Debug/EpForceDirectedGraph.csproj.GenerateResource.Cache

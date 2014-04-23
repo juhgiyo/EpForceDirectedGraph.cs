@@ -79,43 +79,43 @@ namespace EpForceDirectedGraph
 
         public static AbstractVector operator +(AbstractVector a, AbstractVector b)
         {
-            if (a is Vector2 && b is Vector2)
-                return (a as Vector2) + (b as Vector2);
-            else if (a is Vector3 && b is Vector3)
-                return (a as Vector3) + (b as Vector3);
+            if (a is FDGVector2 && b is FDGVector2)
+                return (a as FDGVector2) + (b as FDGVector2);
+            else if (a is FDGVector3 && b is FDGVector3)
+                return (a as FDGVector3) + (b as FDGVector3);
             return null;
         }
         public static AbstractVector operator -(AbstractVector a, AbstractVector b)
         {
-            if (a is Vector2 && b is Vector2)
-                return (a as Vector2) - (b as Vector2);
-            else if (a is Vector3 && b is Vector3)
-                return (a as Vector3) - (b as Vector3);
+            if (a is FDGVector2 && b is FDGVector2)
+                return (a as FDGVector2) - (b as FDGVector2);
+            else if (a is FDGVector3 && b is FDGVector3)
+                return (a as FDGVector3) - (b as FDGVector3);
             return null;
         }
         public static AbstractVector operator *(AbstractVector a, float b)
         {
-            if (a is Vector2)
-                return (a as Vector2) * b;
-            else if (a is Vector3)
-                return (a as Vector3) * b;
+            if (a is FDGVector2)
+                return (a as FDGVector2) * b;
+            else if (a is FDGVector3)
+                return (a as FDGVector3) * b;
             return null;
         }
         public static AbstractVector operator *(float a, AbstractVector b)
         {
-            if (b is Vector2)
-                return a* (b as Vector2);
-            else if (b is Vector3)
-                return a* (b as Vector3);
+            if (b is FDGVector2)
+                return a * (b as FDGVector2);
+            else if (b is FDGVector3)
+                return a * (b as FDGVector3);
             return null;
         }
 
         public static AbstractVector operator /(AbstractVector a, float b)
         {
-            if (a is Vector2)
-                return (a as Vector2) / b;
-            else if (a is Vector3)
-                return (a as Vector3) / b;
+            if (a is FDGVector2)
+                return (a as FDGVector2) / b;
+            else if (a is FDGVector3)
+                return (a as FDGVector3) / b;
             return null;
         }
         public override int GetHashCode()
@@ -141,10 +141,10 @@ namespace EpForceDirectedGraph
             }
 
             // Return true if the fields match:
-            if(a is Vector2 && b is Vector2)
-                return (a as Vector2)==(b as Vector2);
-            else if (a is Vector3 && b is Vector3)
-                return (a as Vector3) == (b as Vector3);
+            if (a is FDGVector2 && b is FDGVector2)
+                return (a as FDGVector2) == (b as FDGVector2);
+            else if (a is FDGVector3 && b is FDGVector3)
+                return (a as FDGVector3) == (b as FDGVector3);
             return false;
 
         }

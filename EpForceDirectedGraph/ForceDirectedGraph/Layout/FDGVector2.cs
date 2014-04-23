@@ -1,9 +1,9 @@
 ﻿/*! 
-@file Vector2.cs
+@file FDGVector2.cs
 @author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
 		<http://github.com/juhgiyo/epForceDirectedGraph.cs>
 @date August 08, 2013
-@brief Vector2 Interface
+@brief FDGVector2 Interface
 @version 1.0
 
 @section LICENSE
@@ -32,7 +32,7 @@ THE SOFTWARE.
 
 @section DESCRIPTION
 
-An Interface for the Vector2 Class.
+An Interface for the FDGVector2 Class.
 
 */
 using System;
@@ -43,16 +43,17 @@ using General;
 
 namespace EpForceDirectedGraph
 {
-    public class Vector2:AbstractVector
+    public class FDGVector2:AbstractVector
     {
-        public Vector2()
+        public FDGVector2()
             : base()
         {
             x = 0.0f;
             y = 0.0f;
             z = 0.0f;
         }
-        public Vector2(float iX, float iY):base()
+        public FDGVector2(float iX, float iY)
+            : base()
         {
             x = iX;
             y = iY;
@@ -73,7 +74,7 @@ namespace EpForceDirectedGraph
             }
 
             // If parameter cannot be cast to Point return false.
-            Vector2 p = obj as Vector2;
+            FDGVector2 p = obj as FDGVector2;
             if ((System.Object)p == null)
             {
                 return false;
@@ -83,7 +84,7 @@ namespace EpForceDirectedGraph
             return (x == p.x) && (y==p.y);
         }
 
-        public bool Equals(Vector2 p)
+        public bool Equals(FDGVector2 p)
         {
             // If parameter is null return false:
             if ((object)p == null)
@@ -95,7 +96,7 @@ namespace EpForceDirectedGraph
             return (x == p.x) && (y == p.y);
         }
 
-        public static bool operator ==(Vector2 a, Vector2 b)
+        public static bool operator ==(FDGVector2 a, FDGVector2 b)
         {
             // If both are null, or both are same instance, return true.
             if (System.Object.ReferenceEquals(a, b))
@@ -113,7 +114,7 @@ namespace EpForceDirectedGraph
             return (a.x == b.x) && (a.y == b.y);
         }
 
-        public static bool operator !=(Vector2 a, Vector2 b)
+        public static bool operator !=(FDGVector2 a, FDGVector2 b)
         {
             return !(a == b);
         }
@@ -121,7 +122,7 @@ namespace EpForceDirectedGraph
 
         public override AbstractVector Add(AbstractVector v2)
         {
-            Vector2 v22 = v2 as Vector2;
+            FDGVector2 v22 = v2 as FDGVector2;
             x= x+v22.x;
             y=y+v22.y;
             return this;
@@ -129,7 +130,7 @@ namespace EpForceDirectedGraph
 
         public override AbstractVector Subtract(AbstractVector v2)
         {
-            Vector2 v22 = v2 as Vector2;
+            FDGVector2 v22 = v2 as FDGVector2;
             x=x-v22.x;
             y=y-v22.y;
             return this;
@@ -164,7 +165,7 @@ namespace EpForceDirectedGraph
 
         public AbstractVector Normal()
         {
-            return new Vector2(y * -1.0f, x);
+            return new FDGVector2(y * -1.0f, x);
         }
 
         public override AbstractVector Normalize()
@@ -186,55 +187,55 @@ namespace EpForceDirectedGraph
         }
         public static AbstractVector Zero()
         {
-            return new Vector2(0.0f, 0.0f);
+            return new FDGVector2(0.0f, 0.0f);
         }
 
         public static AbstractVector Identity()
         {
-            return new Vector2(1.0f, 1.0f);
+            return new FDGVector2(1.0f, 1.0f);
         }
 
         public static AbstractVector Random()
         {
-            
-            Vector2 retVec=new Vector2(10.0f * (Util.Random() - 0.5f), 10.0f * (Util.Random() - 0.5f));
+
+            FDGVector2 retVec = new FDGVector2(10.0f * (Util.Random() - 0.5f), 10.0f * (Util.Random() - 0.5f));
             return retVec;
         }
 
-        public static Vector2 operator +(Vector2 a, Vector2 b)
+        public static FDGVector2 operator +(FDGVector2 a, FDGVector2 b)
         {
-            Vector2 temp = new Vector2(a.x, a.y);
+            FDGVector2 temp = new FDGVector2(a.x, a.y);
             temp.Add(b);
             return temp;
         }
-        public static Vector2 operator -(Vector2 a, Vector2 b)
+        public static FDGVector2 operator -(FDGVector2 a, FDGVector2 b)
         {
-            Vector2 temp = new Vector2(a.x, a.y);
+            FDGVector2 temp = new FDGVector2(a.x, a.y);
             temp.Subtract(b);
             return temp;
         }
-        public static Vector2 operator *(Vector2 a, float b)
+        public static FDGVector2 operator *(FDGVector2 a, float b)
         {
-            Vector2 temp = new Vector2(a.x, a.y);
+            FDGVector2 temp = new FDGVector2(a.x, a.y);
             temp.Multiply(b);
             return temp;
         }
-        public static Vector2 operator *(float a, Vector2 b)
+        public static FDGVector2 operator *(float a, FDGVector2 b)
         {
-            Vector2 temp = new Vector2(b.x, b.y);
+            FDGVector2 temp = new FDGVector2(b.x, b.y);
             temp.Multiply(a);
             return temp;
         }
 
-        public static Vector2 operator /(Vector2 a, float b)
+        public static FDGVector2 operator /(FDGVector2 a, float b)
         {
-            Vector2 temp = new Vector2(a.x, a.y);
+            FDGVector2 temp = new FDGVector2(a.x, a.y);
             temp.Divide(b);
             return temp;
         }
-        public static Vector2 operator /(float a, Vector2 b)
+        public static FDGVector2 operator /(float a, FDGVector2 b)
         {
-            Vector2 temp = new Vector2(b.x, b.y);
+            FDGVector2 temp = new FDGVector2(b.x, b.y);
             temp.Divide(a);
             return temp;
         }

@@ -95,7 +95,7 @@ namespace EpForceDirectedGraph
  
          
         }
-        public Pair<int, int> GraphToScreen(Vector2 iPos)
+        public Pair<int, int> GraphToScreen(FDGVector2 iPos)
         {
             Pair<int, int> retPair = new Pair<int, int>();
             retPair.first = (int)(iPos.x +(((float)(panelRight - panelLeft)) / 2.0f));
@@ -103,9 +103,9 @@ namespace EpForceDirectedGraph
             return retPair;
         }
 
-        public Vector2 ScreenToGraph(Pair<int, int> iScreenPos)
+        public FDGVector2 ScreenToGraph(Pair<int, int> iScreenPos)
         {
-            Vector2 retVec = new Vector2();
+            FDGVector2 retVec = new FDGVector2();
             retVec.x= ((float)iScreenPos.first)-(((float)(panelRight-panelLeft))/2.0f);
             retVec.y = ((float)iScreenPos.second) - (((float)(panelBottom - panelTop)) / 2.0f);
             return retVec;
@@ -113,8 +113,8 @@ namespace EpForceDirectedGraph
 
         public void DrawLine(Edge iEdge, AbstractVector iPosition1, AbstractVector iPosition2)
         {
-            Pair<int, int> pos1 = GraphToScreen(iPosition1 as Vector2);
-            Pair<int, int> pos2 = GraphToScreen(iPosition2 as Vector2);
+            Pair<int, int> pos1 = GraphToScreen(iPosition1 as FDGVector2);
+            Pair<int, int> pos2 = GraphToScreen(iPosition2 as FDGVector2);
             m_fdgLines[iEdge].Set(pos1.first, pos1.second, pos2.first, pos2.second);
             m_fdgLines[iEdge].DrawLine(paper);
             
@@ -122,7 +122,7 @@ namespace EpForceDirectedGraph
 
         public void DrawBox(Node iNode, AbstractVector iPosition)
         {
-            Pair<int, int> pos = GraphToScreen(iPosition as Vector2);
+            Pair<int, int> pos = GraphToScreen(iPosition as FDGVector2);
             m_fdgBoxes[iNode].Set(pos.first, pos.second);
             m_fdgBoxes[iNode].DrawBox(paper);
         }
@@ -274,7 +274,7 @@ namespace EpForceDirectedGraph
             if (clickedNode != null)
             {
 
-                Vector2 vec = ScreenToGraph(new Pair<int, int>(e.Location.X, e.Location.Y));
+                FDGVector2 vec = ScreenToGraph(new Pair<int, int>(e.Location.X, e.Location.Y));
                 clickedNode.Pinned = true;
                 m_fdgPhysics.GetPoint(clickedNode).position = vec;
             }

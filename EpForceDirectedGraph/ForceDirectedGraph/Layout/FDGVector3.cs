@@ -43,10 +43,10 @@ using General;
 
 namespace EpForceDirectedGraph
 {
-    public class Vector3:AbstractVector
+    public class FDGVector3:AbstractVector
     {
 
-        public Vector3()
+        public FDGVector3()
             : base()
         {
             x = 0.0f;
@@ -54,7 +54,8 @@ namespace EpForceDirectedGraph
             z = 0.0f;
         }
 
-        public Vector3(float iX, float iY, float iZ):base()
+        public FDGVector3(float iX, float iY, float iZ)
+            : base()
         {
             x = iX;
             y = iY;
@@ -75,7 +76,7 @@ namespace EpForceDirectedGraph
             }
 
             // If parameter cannot be cast to Point return false.
-            Vector3 p = obj as Vector3;
+            FDGVector3 p = obj as FDGVector3;
             if ((System.Object)p == null)
             {
                 return false;
@@ -85,7 +86,7 @@ namespace EpForceDirectedGraph
             return (x == p.x) && (y == p.y) && (z == p.z);
         }
 
-        public bool Equals(Vector3 p)
+        public bool Equals(FDGVector3 p)
         {
             // If parameter is null return false:
             if ((object)p == null)
@@ -97,7 +98,7 @@ namespace EpForceDirectedGraph
             return (x == p.x) && (y == p.y) && (z == p.z);
         }
 
-        public static bool operator ==(Vector3 a, Vector3 b)
+        public static bool operator ==(FDGVector3 a, FDGVector3 b)
         {
             // If both are null, or both are same instance, return true.
             if (System.Object.ReferenceEquals(a, b))
@@ -115,7 +116,7 @@ namespace EpForceDirectedGraph
             return (a.x == b.x) && (a.y == b.y) && (a.z == b.z);
         }
 
-        public static bool operator !=(Vector3 a, Vector3 b)
+        public static bool operator !=(FDGVector3 a, FDGVector3 b)
         {
             return !(a == b);
         }
@@ -123,7 +124,7 @@ namespace EpForceDirectedGraph
 
         public override AbstractVector Add(AbstractVector v2)
         {
-            Vector3 v32 = v2 as Vector3;
+            FDGVector3 v32 = v2 as FDGVector3;
             x = x + v32.x;
             y = y + v32.y;
             z = z + v32.z;
@@ -132,7 +133,7 @@ namespace EpForceDirectedGraph
 
         public override AbstractVector Subtract(AbstractVector v2)
         {
-            Vector3 v32 = v2 as Vector3;
+            FDGVector3 v32 = v2 as FDGVector3;
             x = x - v32.x;
             y = y - v32.y;
             z = z - v32.z;
@@ -191,47 +192,47 @@ namespace EpForceDirectedGraph
         }
         public static AbstractVector Zero()
         {
-            return new Vector3(0.0f, 0.0f,0.0f);
+            return new FDGVector3(0.0f, 0.0f, 0.0f);
         }
 
         public static AbstractVector Identity()
         {
-            return new Vector3(1.0f, 1.0f,1.0f);
+            return new FDGVector3(1.0f, 1.0f, 1.0f);
         }
 
         public static AbstractVector Random()
         {
-            return new Vector3(10.0f * (Util.Random() - 0.5f), 10.0f * (Util.Random() - 0.5f), 10.0f * (Util.Random() - 0.5f));
+            return new FDGVector3(10.0f * (Util.Random() - 0.5f), 10.0f * (Util.Random() - 0.5f), 10.0f * (Util.Random() - 0.5f));
         }
 
-        public static Vector3 operator +(Vector3 a, Vector3 b)
+        public static FDGVector3 operator +(FDGVector3 a, FDGVector3 b)
         {
-            Vector3 temp = new Vector3(a.x, a.y, a.z);
+            FDGVector3 temp = new FDGVector3(a.x, a.y, a.z);
             temp.Add(b);
             return temp;
         }
-        public static Vector3 operator -(Vector3 a, Vector3 b)
+        public static FDGVector3 operator -(FDGVector3 a, FDGVector3 b)
         {
-            Vector3 temp = new Vector3(a.x, a.y,a.z);
+            FDGVector3 temp = new FDGVector3(a.x, a.y, a.z);
             temp.Subtract(b);
             return temp;
         }
-        public static Vector3 operator *(Vector3 a, float b)
+        public static FDGVector3 operator *(FDGVector3 a, float b)
         {
-            Vector3 temp = new Vector3(a.x, a.y,a.z);
+            FDGVector3 temp = new FDGVector3(a.x, a.y, a.z);
             temp.Multiply(b);
             return temp;
         }
-        public static Vector3 operator *(float a, Vector3 b)
+        public static FDGVector3 operator *(float a, FDGVector3 b)
         {
-            Vector3 temp = new Vector3(b.x, b.y, b.z);
+            FDGVector3 temp = new FDGVector3(b.x, b.y, b.z);
             temp.Multiply(a);
             return temp;
         }
 
-        public static Vector3 operator /(Vector3 a, float b)
+        public static FDGVector3 operator /(FDGVector3 a, float b)
         {
-            Vector3 temp = new Vector3(a.x, a.y,a.z);
+            FDGVector3 temp = new FDGVector3(a.x, a.y, a.z);
             temp.Divide(b);
             return temp;
         }

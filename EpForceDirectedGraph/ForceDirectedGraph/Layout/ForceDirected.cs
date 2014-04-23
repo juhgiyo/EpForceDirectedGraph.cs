@@ -360,7 +360,7 @@ namespace EpForceDirectedGraph
 	
     }
 
-    public class ForceDirected2D : ForceDirected<Vector2>
+    public class ForceDirected2D : ForceDirected<FDGVector2>
     {
         public ForceDirected2D(IGraph iGraph, float iStiffness, float iRepulsion, float iDamping)
             : base(iGraph, iStiffness, iRepulsion, iDamping)
@@ -372,10 +372,10 @@ namespace EpForceDirectedGraph
         {
             if (!(m_nodePoints.ContainsKey(iNode.ID)))
             {
-                Vector2 iniPosition = iNode.Data.initialPostion as Vector2;
+                FDGVector2 iniPosition = iNode.Data.initialPostion as FDGVector2;
                 if (iniPosition == null)
-                    iniPosition = Vector2.Random() as Vector2;
-                m_nodePoints[iNode.ID] = new Point(iniPosition, Vector2.Zero(), Vector2.Zero(), iNode);
+                    iniPosition = FDGVector2.Random() as FDGVector2;
+                m_nodePoints[iNode.ID] = new Point(iniPosition, FDGVector2.Zero(), FDGVector2.Zero(), iNode);
             }
             return m_nodePoints[iNode.ID];
         }
@@ -383,11 +383,11 @@ namespace EpForceDirectedGraph
         public override BoundingBox GetBoundingBox()
         {
             BoundingBox boundingBox = new BoundingBox();
-            Vector2 bottomLeft = Vector2.Identity().Multiply(BoundingBox.defaultBB*-1.0f) as Vector2;
-            Vector2 topRight= Vector2.Identity().Multiply(BoundingBox.defaultBB) as Vector2;
+            FDGVector2 bottomLeft = FDGVector2.Identity().Multiply(BoundingBox.defaultBB * -1.0f) as FDGVector2;
+            FDGVector2 topRight = FDGVector2.Identity().Multiply(BoundingBox.defaultBB) as FDGVector2;
             foreach (Node n in graph.nodes)
             {
-                Vector2 position=GetPoint(n).position as Vector2;
+                FDGVector2 position = GetPoint(n).position as FDGVector2;
 
                 if(position.x < bottomLeft.x)
                     bottomLeft.x=position.x;
@@ -406,7 +406,7 @@ namespace EpForceDirectedGraph
         }
     }
 
-    public class ForceDirected3D : ForceDirected<Vector3>
+    public class ForceDirected3D : ForceDirected<FDGVector3>
     {
         public ForceDirected3D(IGraph iGraph, float iStiffness, float iRepulsion, float iDamping)
             : base(iGraph, iStiffness, iRepulsion, iDamping)
@@ -418,10 +418,10 @@ namespace EpForceDirectedGraph
         {
             if (!(m_nodePoints.ContainsKey(iNode.ID)))
             {
-                Vector3 iniPosition = iNode.Data.initialPostion as Vector3;
+                FDGVector3 iniPosition = iNode.Data.initialPostion as FDGVector3;
                 if (iniPosition == null)
-                    iniPosition = Vector3.Random() as Vector3;
-                m_nodePoints[iNode.ID] = new Point(iniPosition, Vector3.Zero(), Vector3.Zero(), iNode);
+                    iniPosition = FDGVector3.Random() as FDGVector3;
+                m_nodePoints[iNode.ID] = new Point(iniPosition, FDGVector3.Zero(), FDGVector3.Zero(), iNode);
             }
             return m_nodePoints[iNode.ID];
         }
@@ -429,11 +429,11 @@ namespace EpForceDirectedGraph
         public override BoundingBox GetBoundingBox()
         {
             BoundingBox boundingBox = new BoundingBox();
-            Vector3 bottomLeft = Vector3.Identity().Multiply(BoundingBox.defaultBB * -1.0f) as Vector3;
-            Vector3 topRight = Vector3.Identity().Multiply(BoundingBox.defaultBB) as Vector3;
+            FDGVector3 bottomLeft = FDGVector3.Identity().Multiply(BoundingBox.defaultBB * -1.0f) as FDGVector3;
+            FDGVector3 topRight = FDGVector3.Identity().Multiply(BoundingBox.defaultBB) as FDGVector3;
             foreach (Node n in graph.nodes)
             {
-                Vector3 position = GetPoint(n).position as Vector3;
+                FDGVector3 position = GetPoint(n).position as FDGVector3;
                 if (position.x < bottomLeft.x)
                     bottomLeft.x = position.x;
                 if (position.y < bottomLeft.y)

@@ -69,8 +69,8 @@
     <Compile Include="ForceDirectedGraph\Layout\AbstractRenderer.cs" />
     <Compile Include="ForceDirectedGraph\Layout\Spring.cs" />
     <Compile Include="ForceDirectedGraph\Layout\AbstractVector.cs" />
-    <Compile Include="ForceDirectedGraph\Layout\Vector2.cs" />
-    <Compile Include="ForceDirectedGraph\Layout\Vector3.cs" />
+    <Compile Include="ForceDirectedGraph\Layout\FDGVector2.cs" />
+    <Compile Include="ForceDirectedGraph\Layout\FDGVector3.cs" />
     <Compile Include="ForceDirectedGraph.cs">
       <SubType>Form</SubType>
     </Compile>

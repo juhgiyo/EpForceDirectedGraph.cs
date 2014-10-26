@@ -77,7 +77,7 @@ if(node != null)
    m_fdgGraph.RemoveNode(node);
 ```
 
-To detach all the edges from a node (_* Note: The node will still exist in the graph_):  
+To detach all the edges from a node (_**Note**: The node will still exist in the graph_):  
 
 ```c#
 Node node = m_fdgGraph.GetNode("some node label");
@@ -238,15 +238,15 @@ class Renderer: AbstractRenderer
 
 You need to implement three methods to make your force-directed graph to render correctly.  
 
-* Contructor [ base(`IForceDirected`) ]
+* **Contructor** [ `base(IForceDirected)` ]
   1. You must pass the `IForceDirected` instance, created above, to `AbstractRenderer` constructor when you create your `Renderer`.
-* Clear [ void `Clear`() ]
+* **Clear** [ `void Clear()` ]
   1. Clear any previous drawing to draw new scene
   2. This will be called within `AbstractRenderer::Draw` method.
-* drawEdge [ void `drawEdge`(`Edge` iEdge, `AbstractVector` iPosition1, `AbstractVector` iPosition2) ]
+* **drawEdge** [ `void drawEdge(Edge iEdge, AbstractVector iPosition1, AbstractVector iPosition2)` ]
   1. Draw the given edge according to the given positions
   2. `AbstractVector` will be `FDGVector2` if `ForceDirected2D`, and `FDGVector3` if `ForceDirected3D`
-* drawNode [ void `drawNode`(`Node` iNode, `AbstractVector` iPosition) ]
+* **drawNode** [ `void drawNode(Node iNode, AbstractVector iPosition)` ]
   1. Draw the given node according to the given position
   2. `AbstractVector` will be `FDGVector2` if `ForceDirected2D`, and `FDGVector3` if `ForceDirected3D`
 

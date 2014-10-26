@@ -48,7 +48,7 @@ namespace EpForceDirectedGraph.cs
         {
             ID = iId;
             Data = new NodeData();
-            if (Data != null)
+            if (iData != null)
             {
                 Data.initialPostion = iData.initialPostion;
                 Data.label = iData.label;

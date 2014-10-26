@@ -74,7 +74,11 @@ namespace EpForceDirectedGraph.cs
         {
             length = 1.0f;
         }
-        public float length;
+            public float length
+        {
+            get;
+            set;
+        }
     }
     public class GraphData
     {

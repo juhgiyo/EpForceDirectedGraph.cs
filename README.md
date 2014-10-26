@@ -11,7 +11,7 @@ It comes along with a demo to show how the agorithm execute as similar to Dennis
 
 Basic Usage
 ------------
-## Graph ##
+### Graph ###
   
 You first need a `Graph` instance. :  
 
@@ -20,9 +20,9 @@ Graph m_fdgGraph = new Graph();
 ```
 This `Graph` instance will be used to operate your force-directed graph structure such as adding/removing new node, adding/removing edges, etc.  
 
-## Node Operation ##
+### Node Operation ###
 
-### How do I add a node/nodes? ###
+#### How do I add a node/nodes? ####
 Simply to add new node with a name in the graph:  
 
 ```c#
@@ -68,7 +68,7 @@ After adding the nodes to the graph, you can easily get the node instance, you a
 Node node = m_fdgGraph.GetNode("some node label");
 ```
 
-### How do I remove/detach a node? ###
+#### How do I remove/detach a node? ####
 To remove a node from the graph:  
 
 ```c#
@@ -77,7 +77,7 @@ if(node != null)
    m_fdgGraph.RemoveNode(node);
 ```
 
-To detach all the edges from a node (Note: The node will still exist in the graph):  
+To detach all the edges from a node (_** Note: ** The node will still exist in the graph_):  
 
 ```c#
 Node node = m_fdgGraph.GetNode("some node label");
@@ -85,9 +85,9 @@ if(node != null)
    m_fdgGraph.DetachNode(node);
 ```
 
-## Edge Operation ##
+### Edge Operation ###
 
-### How do I add an edge/egdes? ###
+#### How do I add an edge/egdes? ####
 After adding the nodes first, you can connect the two nodes by creating an edge:  
 
 ```c#
@@ -162,7 +162,7 @@ Node node2 = m_fdgGraph.GetNode("node2");
 List<Edge> edgesConnected = m_fdgGraph.GetEdges(node1, node2);
 ```
 
-### How do I remove an edge? ###
+#### How do I remove an edge? ####
 To remove an edge from the graph:  
 
 ```c#
@@ -171,7 +171,7 @@ if(edge != null)
    m_fdgGraph.RemoveEdge(edge);
 ```
 
-## ForceDirected2D/ForceDirected3D ##
+### ForceDirected2D/ForceDirected3D ###
 
 `ForceDirected2D` or `ForceDirected3D` is the calculation class of physics for force-directed graph. The instance of `ForceDirected2D/3D` will take in `Graph` (which is logical structure of force-directed graph), and will be inserted to the instance of the `Renderer`.  
 
@@ -198,7 +198,7 @@ ForceDirected3D m_fdgPhysics = new ForceDirected3D(m_fdgGraph // instance of Gra
                                                    );   
 ```
 
-### How do I change the variables for physics calculation for force-directed graph? ###
+#### How do I change the variables for physics calculation for force-directed graph? ####
 To change the stiffness of the spring (edge):  
 
 ```c#
@@ -225,7 +225,7 @@ m_fdgPhysics.Threadshold = 0.1f;
 
 This `ForceDirected2D/3D` does the most of the job on the background like figuring the positions of nodes and the edges , and this will be inserted to `Renderer` to calculate the graph to render.  
 
-## Renderer ##
+### Renderer ###
 
 First you need to define your own `Renderer` which inherits `AbstractRenderer`:  
 
@@ -291,9 +291,9 @@ m_fdgRenderer.Draw(timeStep);
 
 Advanced Usage
 ------------
-## Extendibility ##
+### Extendibility ###
 
-### Expand NodeData ###
+#### Expand NodeData ####
 
 You can create your own class which inherits `NodeData` and expand it to hold more variables to use it later like on `Draw` and create the node with your version of `NodeData`:  
 
@@ -315,7 +315,7 @@ data.label = "Play";
 Node newNode = m_fdgGraph.CreateNode(data);
 ```
 
-### Expand EdgeData ###
+#### Expand EdgeData ####
 
 Similar to the `NodeData`, you can also expand `EdgeData` by creating your own class which inherits `EdgeData`:  
 
@@ -337,7 +337,7 @@ data.label= "Play";
 Edge newEdge = m_fdgGraph.CreateEdge(data);
 ```
 
-### Notify on graph structure change ###
+#### Notify on graph structure change ####
 
 You can register a listener class to get notified when the graph structure changed. The listener class must implements the `IGraphEventListener` interface's `GraphChanged` method. You can add the listener as below:  
 

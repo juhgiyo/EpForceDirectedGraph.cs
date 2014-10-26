@@ -66,6 +66,7 @@ namespace EpForceDirectedGraph.cs
             }
 
             m_nodeSet[iNode.ID] = iNode;
+            notify();
             return iNode;
         }
 

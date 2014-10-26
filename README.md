@@ -77,7 +77,7 @@ if(node != null)
    m_fdgGraph.RemoveNode(node);
 ```
 
-To detach all the edges from a node (_** Note: ** The node will still exist in the graph_):  
+To detach all the edges from a node (_* Note: The node will still exist in the graph_):  
 
 ```c#
 Node node = m_fdgGraph.GetNode("some node label");

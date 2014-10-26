@@ -12,15 +12,13 @@ It comes along with a demo to show how the agorithm execute as similar to Dennis
 Basic Usage
 ------------
 ## Graph ##
-
-The usage and the demo have been made very similar to Springy Online Demo for ease of usage.  
   
-You first need a Graph instance. :  
+You first need a `Graph` instance. :  
 
 ```c#
 Graph m_fdgGraph = new Graph();   
-This Graph instance will be used to operate your force-directed graph structure such as adding/removing new node, adding/removing edges, etc.
 ```
+This `Graph` instance will be used to operate your force-directed graph structure such as adding/removing new node, adding/removing edges, etc.  
 
 ## Node Operation ##
 
@@ -31,7 +29,7 @@ Simply to add new node with a name in the graph:
 Node newNode = m_fdgGraph.CreateNode("some node label");
 ```
 
-You can also add new node with NodeData by modifying node's label and/or mass:  
+You can also add new node with `NodeData` by modifying node's label and/or mass:  
 
 ```c#
 NodeData data = new NodeData();
@@ -50,7 +48,7 @@ Node newNode = new Node("Unique ID", data);
 Node createdNode = m_fdgGraph.AddNode(newNode);
 ```
 
-You may also bulk-add new nodes with list of string or NodeData:  
+You may also bulk-add new nodes with list of `string` or `NodeData`:  
 
 ```c#
 List<string> nodeNames= new List<string>();
@@ -64,7 +62,7 @@ List<NodeData> nodeDatas =new List<NodeData>();
 m_fdgGraph.CreateNodes(nodeDatas); 
 ```
 
-After adding the nodes to the graph, you can easily get the node instance, you added, by its label:  
+After adding the nodes to the graph, you can easily get the node instance, you added, by its `label`:  
 
 ```c#
 Node node = m_fdgGraph.GetNode("some node label");
@@ -102,7 +100,7 @@ data.length = 60.0f;
 Edge newEdge = m_fdgGraph.CreateEdge(node1, node2, data);
 ```
 
-You can also create new Edge by giving node's ID (which is unique id given on node creation) directly instead of node instances:  
+You can also create new `Edge` by giving node's `ID` (which is unique id given on node creation) directly instead of node instances:  
 
 ```c#
 Node node1 = m_fdgGraph.GetNode("node1");
@@ -128,7 +126,7 @@ Edge newEdge = new Edge("Unique ID", node1, node2, data);
 Edge createdEdge = m_fdgGraph.AddEdge(newEdge);
 ```
 
-You may also bulk-add new edges with the list of the pair of first node's Unique ID string, second node's Unique Id string, or the list of the first node's Unique ID string, second node's Unique Id string and EdgeData for the edge:  
+You may also bulk-add new edges with the list of the pair of first node's Unique ID string, second node's Unique Id string, or the list of the first node's Unique ID string, second node's Unique Id string and `EdgeData` for the edge:  
 
 ```c#
 // First string is first node's Unique ID and second string is second node's Unique ID
@@ -143,7 +141,7 @@ List<Triple<string,string,EdgeData>> edges =new List<Triple<string,string,EdgeDa
 m_fdgGraph.CreateEdges(edges); 
 ```
 
-After adding the edges to the graph, you can easily get the edge instance, you added, by its label:  
+After adding the edges to the graph, you can easily get the edge instance, you added, by its `label`:  
 
 ```c#
 Edge edge = m_fdgGraph.GetEdge("node1-node2");
@@ -175,9 +173,9 @@ if(edge != null)
 
 ## ForceDirected2D/ForceDirected3D ##
 
-ForceDirected2D or ForceDirected3D is the calculation class of physics for force-directed graph. The instance of ForceDirected2D/3D will take in Graph (which is logical structure of force-directed graph), and will be inserted to the instance of the Renderer.  
+`ForceDirected2D` or `ForceDirected3D` is the calculation class of physics for force-directed graph. The instance of `ForceDirected2D/3D` will take in `Graph` (which is logical structure of force-directed graph), and will be inserted to the instance of the `Renderer`.  
 
-To create ForceDirected2D/3D to calculate the physics for your force-directed graph:  
+To create `ForceDirected2D/3D` to calculate the physics for your force-directed graph:  
 
 ```c#
 float stiffness = 81.76f;
@@ -219,17 +217,17 @@ To change the damping:
 m_fdgPhysics.Damping = 0.7f;
 ```
 
-Finally you can also set the Threadshold to stop the physics iteration at certain point (depends on how you set the threadshold, it will affect the performance of the graph calculation):  
+Finally you can also set the `Threadshold` to stop the physics iteration at certain point (depends on how you set the threadshold, it will affect the performance of the graph calculation):  
 
 ```c#
 m_fdgPhysics.Threadshold = 0.1f;
 ```
 
-This ForceDirected2D/3D does the most of the job on the background like figuring the positions of nodes and the edges , and this will be inserted to Renderer to calculate the graph to render.  
+This `ForceDirected2D/3D` does the most of the job on the background like figuring the positions of nodes and the edges , and this will be inserted to `Renderer` to calculate the graph to render.  
 
 ## Renderer ##
 
-First you need to define your own Renderer which inherits AbstractRenderer:  
+First you need to define your own `Renderer` which inherits `AbstractRenderer`:  
 
 ```c#
 class Renderer: AbstractRenderer
@@ -240,17 +238,17 @@ class Renderer: AbstractRenderer
 
 You need to implement three methods to make your force-directed graph to render correctly.  
 
-* Contructor [ base(IForceDirected) ]
-  1. You must pass the IForceDirected instance, created above, to AbstractRenderer constructor when you create your Renderer.
-* Clear [ void Clear() ]
+* Contructor [ base(`IForceDirected`) ]
+  1. You must pass the `IForceDirected` instance, created above, to `AbstractRenderer` constructor when you create your `Renderer`.
+* Clear [ void `Clear`() ]
   1. Clear any previous drawing to draw new scene
-  2. This will be called within AbstractRenderer::Draw method.
-* drawEdge [ void drawEdge(Edge iEdge, AbstractVector iPosition1, AbstractVector iPosition2) ]
+  2. This will be called within `AbstractRenderer::Draw` method.
+* drawEdge [ void `drawEdge`(`Edge` iEdge, `AbstractVector` iPosition1, `AbstractVector` iPosition2) ]
   1. Draw the given edge according to the given positions
-  2. AbstractVector will be FDGVector2 if ForceDirected2D, and FDGVector3 if ForceDirected3D
-* drawNode [ void drawNode(Node iNode, AbstractVector iPosition) ]
+  2. `AbstractVector` will be `FDGVector2` if `ForceDirected2D`, and `FDGVector3` if `ForceDirected3D`
+* drawNode [ void `drawNode`(`Node` iNode, `AbstractVector` iPosition) ]
   1. Draw the given node according to the given position
-  2. AbstractVector will be FDGVector2 if ForceDirected2D, and FDGVector3 if ForceDirected3D
+  2. `AbstractVector` will be `FDGVector2` if `ForceDirected2D`, and `FDGVector3` if `ForceDirected3D`
 
 ```c#
 class Renderer: AbstractRenderer
@@ -278,13 +276,13 @@ class Renderer: AbstractRenderer
 };
 ```
 
-Then create an instance of your Renderer with ForceDirected2D/3D instance as a parameter:  
+Then create an instance of your `Renderer` with `ForceDirected2D/3D` instance as a parameter:  
 
 ```c#
 Renderer m_fdgRenderer = new Renderer(m_fdgPhysics);   
 ```
 
-Finally to draw your Graph with the renderer you created above, you simply call Draw:  
+Finally to draw your `Graph` with the renderer you created above, you simply call `Draw`:  
 
 ```c#
 float timeStep = 0.05f; // The time passed from previous Draw call in second
@@ -297,7 +295,7 @@ Advanced Usage
 
 ### Expand NodeData ###
 
-You can create your own class which inherits NodeData and expand it to hold more variables to use it later like on Draw and create the node with your version of NodeData:  
+You can create your own class which inherits `NodeData` and expand it to hold more variables to use it later like on `Draw` and create the node with your version of `NodeData`:  
 
 ```c#
 public class MyNodeData: NodeData
@@ -319,7 +317,7 @@ Node newNode = m_fdgGraph.CreateNode(data);
 
 ### Expand EdgeData ###
 
-Similar to the NodeData, you can also expand EdgeData by creating your own class which inherits EdgeData:  
+Similar to the `NodeData`, you can also expand `EdgeData` by creating your own class which inherits `EdgeData`:  
 
 ```c#
 public class MyEdgeData: EdgeData
@@ -341,7 +339,7 @@ Edge newEdge = m_fdgGraph.CreateEdge(data);
 
 ### Notify on graph structure change ###
 
-You can register a listener class to get notified when the graph structure changed. The listener class must implements the IGraphEventListener interface's GraphChanged method. You can add the listener as below:  
+You can register a listener class to get notified when the graph structure changed. The listener class must implements the `IGraphEventListener` interface's `GraphChanged` method. You can add the listener as below:  
 
 ```c#
 IGraphEventListener listener = new MyGraphEventListner();

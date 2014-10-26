@@ -1,28 +1,16 @@
-EpForceDirectedGraph.cs
-=======================
-#### A 2D/3D force directed graph algorithm in C# ####
+﻿/*! 
+@file Triple.cs
+@author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
+		<http://github.com/juhgiyo/epForceDirectedGraph.cs>
+@date August 08, 2013
+@brief Generic Triple Interface
+@version 1.0
 
+@section LICENSE
 
-Introduction
-------------
-This project was started after I was inspired by [Springy by Dennis Hotson](https://github.com/dhotson/springy) and [the Wikipedia article](http://en.wikipedia.org/wiki/Force-directed_graph_drawing).
-It comes along with a demo to show how the agorithm execute as similar to Dennis Hotson's [Online Demo](http://dhotson.github.io/springy/demo-simple.html).
+The MIT License (MIT)
 
-
-Basic Usage
-------------
-
-
-Advanced Usage
-------------
-
-
-License
--------
-
-[The MIT License](http://opensource.org/licenses/mit-license.php)
-
-Copyright (c) 2013 Woong Gyu La <[juhgiyo@gmail.com](mailto:juhgiyo@gmail.com)>
+Copyright (c) 2013 Woong Gyu La <juhgiyo@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -41,3 +29,34 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+@section DESCRIPTION
+
+An Interface for the Generic Triple Class.
+
+*/
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace EpForceDirectedGraph.cs
+{
+    public class Triple<T,U,V>
+    {
+        public Triple()
+        {
+        }
+
+        public Triple(T iFirst, U iSecond,V iThird)
+        {
+            this.first = iFirst;
+            this.second = iSecond;
+            this.third = iThird;
+        }
+
+        public T first { get; set; }
+        public U second { get; set; }
+        public V third { get; set; }
+    }
+}

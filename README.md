@@ -1,3 +1,5 @@
+<a href='https://pledgie.com/campaigns/27767'><img alt='Click here to lend your support to: EpForceDirectedGraph.cs and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/27767.png?skin_name=chrome' border='0' ></a>
+
 EpForceDirectedGraph.cs
 =======================
 #### A 2D/3D force directed graph algorithm in C# ####
@@ -346,6 +348,11 @@ IGraphEventListener listener = new MyGraphEventListner();
 m_fdgGraph.AddGraphListener(listner); // After this point when graph structure changed, 
                                       //   listener.GraphChanged() method will be called
 ```
+
+Donation
+-------
+
+<a href='https://pledgie.com/campaigns/27767'><img alt='Click here to lend your support to: EpForceDirectedGraph.cs and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/27767.png?skin_name=chrome' border='0' ></a>
 
 License
 -------

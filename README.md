@@ -353,7 +353,8 @@ Donation
 [![Gratipay][gratipay-image]][gratipay-url]
 
 or donation by Pledgie  
-<a href='https://pledgie.com/campaigns/27767'><img alt='Click here to lend your support to: EpForceDirectedGraph.cs and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/27767.png?skin_name=chrome' border='0' ></a>
+<a href='https://pledgie.com/campaigns/27762'><img alt='Click here to lend your support to: Open Source Visual C++/C# Projects and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/27762.png?skin_name=chrome' border='0' ></a>
+
 
 License
 -------

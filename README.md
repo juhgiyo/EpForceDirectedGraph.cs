@@ -1,5 +1,4 @@
-<a href='https://pledgie.com/campaigns/27767'><img alt='Click here to lend your support to: EpForceDirectedGraph.cs and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/27767.png?skin_name=chrome' border='0' ></a>
-
+[![Gratipay][gratipay-image]][gratipay-url]
 EpForceDirectedGraph.cs
 =======================
 #### A 2D/3D force directed graph algorithm in C# ####
@@ -351,7 +350,9 @@ m_fdgGraph.AddGraphListener(listner); // After this point when graph structure c
 
 Donation
 -------
+[![Gratipay][gratipay-image]][gratipay-url]
 
+or donation by Pledgie  
 <a href='https://pledgie.com/campaigns/27767'><img alt='Click here to lend your support to: EpForceDirectedGraph.cs and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/27767.png?skin_name=chrome' border='0' ></a>
 
 License
@@ -378,3 +379,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+[gratipay-image]: https://img.shields.io/gratipay/juhgiyo.svg?style=flat
+[gratipay-url]: https://gratipay.com/juhgiyo/

@@ -10,6 +10,11 @@ This project was started after I was inspired by [Springy by Dennis Hotson](http
 It comes along with a demo to show how the agorithm execute as similar to Dennis Hotson's [Online Demo](http://dhotson.github.io/springy/demo-simple.html).
 
 
+Nuget Package
+------------
+[Nuget Package](https://www.nuget.org/packages/EpForceDirectedGraph.cs/)
+
+
 Basic Usage
 ------------
 ### Graph ###

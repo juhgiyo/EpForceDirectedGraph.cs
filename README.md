@@ -1,4 +1,3 @@
-[![Gratipay][gratipay-image]][gratipay-url]
 EpForceDirectedGraph.cs
 =======================
 #### A 2D/3D force directed graph algorithm in C# ####
@@ -353,14 +352,6 @@ m_fdgGraph.AddGraphListener(listner); // After this point when graph structure c
                                       //   listener.GraphChanged() method will be called
 ```
 
-Donation
--------
-[![Gratipay][gratipay-image]][gratipay-url]
-
-or donation by Pledgie  
-<a href='https://pledgie.com/campaigns/27762'><img alt='Click here to lend your support to: Open Source Visual C++/C# Projects and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/27762.png?skin_name=chrome' border='0' ></a>
-
-
 License
 -------
 
@@ -385,10 +376,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-[gratipay-image]: https://img.shields.io/gratipay/juhgiyo.svg?style=flat
-[gratipay-url]: https://gratipay.com/juhgiyo/
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/juhgiyo/epforcedirectedgraph.cs/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
